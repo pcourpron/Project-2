@@ -1,11 +1,16 @@
-var Chartist = require("chartist");
+var Sequelize = require("sequelize");
+var sequelize = require("../config/connection.js");
 
-var data = {
-    labels: ["Mon", 'Tue', 'Wed', 'Thu', 'Fri'],
+var array = [1, 12, 12, 12, 1];
+var labelArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
-    series: [
-        [5, 2, 4, 2, 0]
+var chart = document.getElementById("my-chart");
+
+new Chartist.Line("#my-chart", {
+    labels: labelArray,
+    series: [   
+        array,
+        [2, 4, 7, 3, 6],
+        [5, 9, 8, 7, 6]
     ]
-}
-
-new Chartist.Line('.ct-chart,', data);
+});

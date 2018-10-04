@@ -9,21 +9,8 @@
     <title>Charts on Charts</title>
 </head>
 <body>
-    <div class="ct-chart ct-perfect-fourth"></div>
+    <div class="ct-chart ct-perfect-fourth" id="my-chart"></div>
 
-<script>
-
-    var array = [1, 12, 12, 12, 1];
-    var labelArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-
-   new Chartist.Line('.ct-chart', {
-  labels: labelArray,
-  series: [
-    array,
-    [2, 4, 7, 3, 6],
-    [5, 9, 8, 7, 6]
-  ]
-});
-</script>
+<script src ="../public/chart.js"></script>
 </body>
 </html>
