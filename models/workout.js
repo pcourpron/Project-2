@@ -3,6 +3,8 @@ module.exports = function(sequelize, DataTypes) {
       category: DataTypes.STRING,
       distance: DataTypes.INTEGER, 
       workout_length: DataTypes.TIME,
+      RPE: DataTypes.INTEGER, 
+      stress_score: DataTypes.INTEGER
     });
-    return Todo;
+    return Workout;
   };

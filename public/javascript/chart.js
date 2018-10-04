@@ -1,5 +1,4 @@
-var Sequelize = require("sequelize");
-var sequelize = require("../config/connection.js");
+
 
 var array = [1, 12, 12, 12, 1];
 var labelArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
