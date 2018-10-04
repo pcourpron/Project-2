@@ -4,7 +4,8 @@ module.exports = function(sequelize, DataTypes) {
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
       password: DataTypes.STRING,
-      email: DataTypes.STRING
+      email: DataTypes.STRING,
+      strava_auth : DataTypes.STRING
     });
   
     return User;
