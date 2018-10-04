@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Set Handlebars.
 
 // Import routes and give the server access to them.
-var routes = require("");
+var routes = require("./controllers/userController.js");
 
 app.use(routes);
 
