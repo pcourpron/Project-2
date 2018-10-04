@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/pcourpron/Project-2#readme",
   "dependencies": {
-    "bower": "^1.8.4",
     "chartist": "^0.11.0",
+    "bcrypt": "^3.0.1",
+    "express": "^4.16.3",
+    "mysql": "^2.16.0",
+    "mysql2": "^1.6.1",
     "sequelize": "^4.39.0"
   }
 }
