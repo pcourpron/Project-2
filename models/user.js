@@ -3,12 +3,9 @@ module.exports = function(sequelize, DataTypes) {
       // Giving the USer model a name of type STRING
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
-      password: DataTypes.INTEGER,
-      date_of_birth: DataTypes.DATE,
+      password: DataTypes.STRING,
       email: DataTypes.STRING
     });
-  
-    
   
     return User;
   };

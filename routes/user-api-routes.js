@@ -9,18 +9,19 @@ module.exports = function (app) {
 
 
     app.post("/api/newUser", function (req, res) {
-
         var hashedPW 
         var user = req.body
+        console.log(user)
         bcrypt.hash(req.body.password, 10, function (err, hash) {
-            hashedPW = hash
+            user.password = hash
+            console.log(hash)
+            db.User.create(user).then(function (result) {
+          
+            });
         });
-
-        user.password = hashedPW
-
-        db.User.create(user).then(function (result) {
-            res('done')
-        });
+       
+        
+        
     });
 }
 

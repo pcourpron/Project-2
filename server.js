@@ -13,18 +13,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyParser.json());
+var db = require("./models");
+
 
 // Import routes and give the server access to them.
-<<<<<<< HEAD
-var routes = require("./controllers/userController.js");
-
-app.use(routes);
-=======
 require('./routes/htmlRoutes.js')(app);
->>>>>>> 689445eeafd4ab5ae56bd09146b49b6954bd046e
+require("./routes/user-api-routes.js")(app);
 
 // Start our server so that it can begin listening to client requests.
-app.listen(PORT, () => {
-  // Log (server-side) when our server has started
-  console.log(`Server listening on: http://localhost:${PORT}`);
+db.sequelize.sync({ force: true }).then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
 });
