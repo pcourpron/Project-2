@@ -1,0 +1,130 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <a class="navbar-brand" href="/index.html">Logo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/log.html">Log a Workout</a>
+        <a class="nav-item nav-link" href="/view.html">View Workouts</a>
+        <a class="nav-item nav-link" href="/sync.html">Sync</a>
+      </div>
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="/settings.html">Settings</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <div class="form-group mb-4">
+    <label for="categorySelect">
+      <h3>Category Mother Fucker!</h3>
+    </label>
+    <select class="form-control" id="categorySelect">
+      <option>All</option>
+      <option>Crossfit</option>
+      <option>Hike</option>
+      <option>Ride</option>
+      <option>Run</option>
+      <option>Swim</option>
+      <option>Walk</option>
+    </select>
+  </div>
+  <div class="row">
+    <div class="col" id="crossfit">
+      <h3>Crossfit</h3>
+      {{#if category.crossfit}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout-length}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="hike">
+      <h3>Hike</h3>
+      {{#if category.hike}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout_length}}</li>
+        <li class="list-group-item">Distance: {{distance}}</li>
+        <li class="list-group-item">Pace: {{pace}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="ride">
+      <h3>Ride</h3>
+      {{#if category.ride}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout_length}}</li>
+        <li class="list-group-item">Distance: {{distance}}</li>
+        <li class="list-group-item">Pace: {{pace}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="run">
+      <h3>Run</h3>
+      {{#if category.run}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout_length}}</li>
+        <li class="list-group-item">Distance: {{distance}}</li>
+        <li class="list-group-item">Pace: {{pace}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="swim">
+      <h3>Swim</h3>
+      {{#if category.swim}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout_length}}</li>
+        <li class="list-group-item">Distance: {{distance}}</li>
+        <li class="list-group-item">Pace: {{pace}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" id="walk">
+      <h3>Walk</h3>
+      {{#if category.walk}}
+      {{#each workout}}
+      <ul class="list-group mb-4">
+        <li class="list-group-item">Time: {{workout_length}}</li>
+        <li class="list-group-item">Distance: {{distance}}</li>
+        <li class="list-group-item">Pace: {{pace}}</li>
+        <li class="list-group-item">RPE: {{RPE}}</li>
+        <li class="list-group-item">Heart Rate: {{heart_rate}}</li>
+      </ul>
+      {{/each}}
+      {{/if}}
+    </div>
+  </div>
+</main>
