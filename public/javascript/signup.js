@@ -6,7 +6,6 @@ $(document).on("click", "#submit", function(event){
         first_name: $('#first_name').val().trim(),
         last_name: $('#last_name').val().trim(),
         email: $('#email').val().trim(),
-        date_of_birth : $('#date_of_birth').val().trim(),
         password: $('#password').val()
     }
 
@@ -15,8 +14,8 @@ $(document).on("click", "#submit", function(event){
         type: "POST",
         data: userInfo
     }).then(function () {
-        console.log('done')
-
+       localStorage.setItem('email',userInfo.email)
+       console.log('hi')
     }
     );
 
