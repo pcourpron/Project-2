@@ -24,6 +24,10 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/settings.html'));
   });
 
+  app.get('/chart', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/chart.html'));
+  });
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/404.html'));
   });
