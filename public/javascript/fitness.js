@@ -30,7 +30,7 @@ var fitness = 6;
 
 function createEMA(){
     let multiplier;
-    for(let i=0; i < 10; i++){
+    for(let i=0; i < stressArray.length; i++){
         if(i===0){
             multiplier=1;
         }
