@@ -1,9 +1,11 @@
 const path = require('path');
+const db = require('../models');
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
+
   app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/signup.html'));
   });
@@ -20,7 +22,17 @@ module.exports = (app) => {
   });
 
   app.get('/view', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/view.html'));
+    const workoutArray = [];
+    let workoutObject;
+    db.Workout.findAll().then((data) => {
+      data.forEach((workout) => {
+        const workoutType = workout.dataValues.category;
+        workoutObject = workout.dataValues;
+        workoutObject[workoutType] = true;
+        workoutArray.push(workoutObject);
+      });
+      res.render('view', { workout: workoutArray });
+    });
   });
 
   app.get('/sync', (req, res) => {
