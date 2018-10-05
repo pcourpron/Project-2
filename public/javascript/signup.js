@@ -14,8 +14,8 @@ $(document).on("click", "#submit", function(event){
         type: "POST",
         data: userInfo
     }).then(function () {
-        console.log('done')
-
+       localStorage.setItem('email',userInfo.email)
+       console.log('hi')
     }
     );
 

@@ -11,6 +11,10 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/html/test.html'));
   });
 
+  app.get('/redirect_success', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/html/redirect_success.html'));
+  });
+
   app.get('/log', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/log.html'));
   });
