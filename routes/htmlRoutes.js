@@ -14,13 +14,17 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/log.html'));
   });
 
-  // app.get('/view', (req, res) => {
-  //   res.sendFile(path.join(__dirname, '../public/view.html'));
-  // });
-
   app.get('/view', (req, res) => {
-    db.Workout.selectAll((data) => {
-      res.render('view', { workout: data });
+    const workoutArray = [];
+    let workoutObject;
+    db.Workout.findAll().then((data) => {
+      data.forEach((workout) => {
+        const workoutType = workout.dataValues.category;
+        workoutObject = workout.dataValues;
+        workoutObject[workoutType] = true;
+        workoutArray.push(workoutObject);
+      });
+      res.render('view', { workout: workoutArray });
     });
   });
 

@@ -1,8 +1,4 @@
-
-
 var db = require("../models");
-
-var bcrypt = require('bcrypt')
 
 
 module.exports = function (app) {
@@ -19,9 +15,6 @@ module.exports = function (app) {
           
             });
         });
-       
-        
         
     });
 }
-

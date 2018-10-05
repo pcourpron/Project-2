@@ -23,11 +23,12 @@ app.set('view engine', 'handlebars');
 const db = require('./models');
 
 // Import routes and give the server access to them.
-require('./routes/htmlRoutes.js')(app);
+require('./routes/workout-api-routes.js')(app);
 require('./routes/user-api-routes.js')(app);
+require('./routes/htmlRoutes.js')(app);
 
 // Start our server so that it can begin listening to client requests.
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
   });
