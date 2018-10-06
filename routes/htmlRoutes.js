@@ -19,7 +19,7 @@ module.exports = (app) => {
   });
 
   app.get('/log', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/log.html'));
+    res.sendFile(path.join(__dirname, '../public/html/log.html'));
   });
 
   app.get('/view', (req, res) => {
@@ -77,18 +77,18 @@ module.exports = (app) => {
   });
 
   app.get('/sync', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/sync.html'));
+    res.sendFile(path.join(__dirname, '../public/html/sync.html'));
   });
 
   app.get('/settings', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/settings.html'));
+    res.sendFile(path.join(__dirname, '../public/html/settings.html'));
   });
 
   app.get('/chart', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/chart.html'));
+    res.sendFile(path.join(__dirname, '../public/html/chart.html'));
   });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/404.html'));
+    res.sendFile(path.join(__dirname, '../public/html/404.html'));
   });
 };
