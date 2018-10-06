@@ -5,6 +5,7 @@ const showOnly = (category) => {
   $('#run').hide();
   $('#swim').hide();
   $('#walk').hide();
+  $('#other').hide();
   $(`${category}`).show();
 };
 
@@ -30,6 +31,9 @@ $('#categorySelect').change(function select() {
       break;
     case 'Walk':
       showOnly('#walk');
+      break;
+    case 'Other':
+      showOnly('#other');
       break;
     default:
       break;
