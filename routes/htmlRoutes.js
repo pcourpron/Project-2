@@ -33,8 +33,8 @@ module.exports = (app) => {
     db.Workout.findAll().then((data) => {
       data.forEach((workout) => {
         Object.values(workout.dataValues).forEach((value) => {
+          let newValue = value;
           if (value === null) {
-            let newValue = value;
             newValue = false;
           }
         });

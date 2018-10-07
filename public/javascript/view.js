@@ -1,18 +1,12 @@
 const showOnly = (category) => {
-  $('#crossfit').hide();
-  $('#hike').hide();
-  $('#ride').hide();
-  $('#run').hide();
-  $('#swim').hide();
-  $('#walk').hide();
-  $('#other').hide();
+  $('.hide').hide();
   $(`${category}`).show();
 };
 
 $('#categorySelect').change(function select() {
   switch ($(this).val()) {
     case 'All':
-      showOnly('#crossfit, #hike, #ride, #run, #swim, #walk');
+      $('.hide').show();
       break;
     case 'Crossfit':
       showOnly('#crossfit');
