@@ -1,0 +1,3 @@
+CREATE DATABASE Project2;
+
+USE DATABASE Project2;
