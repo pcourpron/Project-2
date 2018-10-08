@@ -3,11 +3,18 @@ const db = require('../models');
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
+   
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
 
   app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/signup.html'));
+  });
+  app.get('/homepage', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/homepage.html'));
+  });
+  app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/html/login.html'));
   });
   app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/test.html'));

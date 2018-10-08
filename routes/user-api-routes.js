@@ -10,7 +10,21 @@ module.exports = function (app) {
         var user = req.body
 
         db.User.create(user).then(function (result) {
-            res.send(result)
+            res.send(true)
+        });
+
+
+
+    });
+    app.post("/api/login", function (req, res) {4
+        var user = req.body
+        db.User.find({
+            where : {email: user.email}
+        }).then(function (results) {
+           if (user.password === results.dataValues.password){
+           res.send({email: user.email, auth_key :results.dataValues.auth_key})
+           }
+
         });
 
 
@@ -22,7 +36,7 @@ module.exports = function (app) {
         var email = req.body['2']
 
         request.post({
-            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            headers: { 'content-type': 'application/x-      ww-form-urlencoded' },
             url: `https://www.strava.com/oauth/token?client_id=29032&client_secret=0f9f5324b2a4ee9c2c68fcacf7013755710a91ec&code=${code}`,
             body: ""
         }, function (error, response, body) {
