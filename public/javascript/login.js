@@ -12,8 +12,16 @@ $(document).ready(function() {
             type: "POST",
             data: userInfo
         }).then(function (response) {
-           localStorage.setItem('email',userInfo.email);
-           localStorage.setItem('auth_key',response.auth_key)
+           function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        setCookie('email',userInfo.email)
+        setCookie('auth_key',response.auth_key)
+           window.location.href = '/homepage'
 
        
         }

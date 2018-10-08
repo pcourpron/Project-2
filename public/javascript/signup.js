@@ -19,8 +19,16 @@ $(document).on("click", "#submit", function(event){
         data: userInfo
     }).then(function (response) {
         if (response === true){
-       localStorage.setItem('email',userInfo.email)
-       localStorage.setItem('auth_key',userInfo.auth_key)
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+    
+            setCookie('email',userInfo.email,60)
+            setCookie('auth_key',userInfo.auth_key,60)
+               window.location.href = '/homepage'
         }
     }
     );
