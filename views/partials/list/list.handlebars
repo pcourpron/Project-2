@@ -1,0 +1,26 @@
+<ul class="list-group mb-4">
+  {{#if date}}
+  <li class="list-group-item">Date: {{date}}</li>
+  {{/if}}
+  {{#if time}}
+  <li class="list-group-item">Time: {{time}}</li>
+  {{/if}}
+  {{#if distance}}
+  <li class="list-group-item">Distance: {{distance}} miles</li>
+  {{/if}}
+  {{#if workout_length}}
+  <li class="list-group-item">Workout Length: {{workout_length}}</li>
+  {{/if}}
+  {{#if pace}}
+  <li class="list-group-item">Pace: {{pace}}</li>
+  {{/if}}
+  {{#if RPE}}
+  <li class="list-group-item">RPE: {{RPE}}</li>
+  {{/if}}
+  {{#if stress_score}}
+  <li class="list-group-item">Stress: {{stress_score}}</li>
+  {{/if}}
+  {{#if has_heartrate}}
+  <li class="list-group-item">Heart Rate: {{heart_rate}} BPM</li>
+  {{/if}}
+</ul>
