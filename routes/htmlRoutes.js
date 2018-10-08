@@ -9,6 +9,7 @@ module.exports = (app) => {
   app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/signup.html'));
   });
+
   app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/test.html'));
   });
@@ -18,36 +19,76 @@ module.exports = (app) => {
   });
 
   app.get('/log', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/log.html'));
+    res.sendFile(path.join(__dirname, '../public/html/log.html'));
   });
 
   app.get('/view', (req, res) => {
-    const workoutArray = [];
-    let workoutObject;
+    const crossfitArray = [];
+    const hikeArray = [];
+    const rideArray = [];
+    const runArray = [];
+    const swimArray = [];
+    const walkArray = [];
+    const otherArray = [];
     db.Workout.findAll().then((data) => {
       data.forEach((workout) => {
-        const workoutType = workout.dataValues.category;
-        workoutObject = workout.dataValues;
-        workoutObject[workoutType] = true;
-        workoutArray.push(workoutObject);
+        Object.values(workout.dataValues).forEach((value) => {
+          let newValue = value;
+          if (value === null) {
+            newValue = false;
+          }
+        });
+        switch (workout.dataValues.category) {
+          case 'crossfit':
+            crossfitArray.push(workout.dataValues);
+            break;
+          case 'hike':
+            hikeArray.push(workout.dataValues);
+            break;
+          case 'ride':
+            rideArray.push(workout.dataValues);
+            break;
+          case 'run':
+            runArray.push(workout.dataValues);
+            break;
+          case 'swim':
+            swimArray.push(workout.dataValues);
+            break;
+          case 'walk':
+            walkArray.push(workout.dataValues);
+            break;
+          case 'other':
+            otherArray.push(workout.dataValues);
+            break;
+          default:
+            break;
+        }
       });
-      res.render('view', { workout: workoutArray });
+      res.render('view', {
+        crossfit: crossfitArray,
+        hike: hikeArray,
+        ride: rideArray,
+        run: runArray,
+        swim: swimArray,
+        walk: walkArray,
+        other: otherArray,
+      });
     });
   });
 
   app.get('/sync', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/sync.html'));
+    res.sendFile(path.join(__dirname, '../public/html/sync.html'));
   });
 
   app.get('/settings', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/settings.html'));
+    res.sendFile(path.join(__dirname, '../public/html/settings.html'));
   });
 
   app.get('/chart', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/chart.html'));
+    res.sendFile(path.join(__dirname, '../public/html/chart.html'));
   });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/404.html'));
+    res.sendFile(path.join(__dirname, '../public/html/404.html'));
   });
 };

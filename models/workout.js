@@ -1,5 +1,5 @@
-module.exports = function(sequelize, DataTypes) {
-  var Workout = sequelize.define('Workout', {
+module.exports = function (sequelize, DataTypes) {
+  var Workout = sequelize.define("Workout", {
     category: DataTypes.STRING,
     distance: DataTypes.INTEGER,
     workout_length: DataTypes.TIME,
@@ -10,8 +10,8 @@ module.exports = function(sequelize, DataTypes) {
     time: DataTypes.TIME,
     has_heartrate: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
+      defaultValue: false
+    }
   });
   return Workout;
 };
