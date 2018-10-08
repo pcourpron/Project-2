@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-module.exports = function(sequelize, DataTypes) {
-  var Workout = sequelize.define('Workout', {
-=======
 module.exports = function (sequelize, DataTypes) {
   var Workout = sequelize.define("Workout", {
->>>>>>> Law
     category: DataTypes.STRING,
     distance: DataTypes.INTEGER,
     workout_length: DataTypes.TIME,
@@ -15,16 +10,8 @@ module.exports = function (sequelize, DataTypes) {
     time: DataTypes.TIME,
     has_heartrate: {
       type: DataTypes.BOOLEAN,
-<<<<<<< HEAD
-      defaultValue: false,
-    },
-  });
-  return Workout;
-};
-=======
       defaultValue: false
     }
   });
   return Workout;
 };
->>>>>>> Law
