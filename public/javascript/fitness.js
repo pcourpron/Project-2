@@ -11,6 +11,16 @@ function getWorkouts(){
 
         for(let i = 0; i<workouts.length; i++){
             stressArray.push(workouts[i].stress_score);
+            if (i < workouts.length-1){
+                let date1 = new Date(workouts[i].date);
+            let date2 = new Date(workouts[i+1].date);
+            let difference = (date2-date1)/(1000*60*60*24);
+            if(difference > 1){
+                for (let i = 0; i < difference; i++){
+                    stressArray.push(0);
+                }
+            }
+            }
         }
         console.log(stressArray);
         console.log(Math.max(...stressArray))
@@ -30,7 +40,7 @@ var fitness = 6;
 
 function createEMA(){
     let multiplier;
-    for(let i=0; i < 10; i++){
+    for(let i=0; i < stressArray.length; i++){
         if(i===0){
             multiplier=1;
         }
@@ -52,9 +62,7 @@ function createFitness(){
 }
 
 function renderChart(stress, fitness){
-    var labelArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
     new Chartist.Line(".ct-chart", {
-        labels: labelArray,
         series: [   
             stress, 
             fitness
