@@ -3,7 +3,7 @@ var db = require("../models");
 module.exports = function(app){
 
     app.get("/api/workout/", function(req, res) {
-        db.Workout.findAll().then(function(dbWorkout){
+        db.Workout.findAll({order: ["date"]}).then(function(dbWorkout){
             res.json(dbWorkout);
         })
     });

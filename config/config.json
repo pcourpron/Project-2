@@ -3,7 +3,11 @@
     "username": "root",
     "password": null,
     "database": "Project2",
+<<<<<<< HEAD
     "host": "localhost",
+=======
+    "host": "127.0.0.1",
+>>>>>>> b8c4efb8524f92340b099331cc642cdc8c227985
     "port": 3306,
     "dialect": "mysql"
   },
