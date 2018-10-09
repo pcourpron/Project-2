@@ -182,7 +182,7 @@ function renderChart(stress, fitness,){
           data.element.animate({
             d: {
               begin: 2000 * data.index,
-              dur: 2000,
+              dur: 1000,
               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
               to: data.path.clone().stringify(),
               easing: Chartist.Svg.Easing.easeOutQuint
