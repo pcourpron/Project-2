@@ -33,11 +33,7 @@ require('./routes/htmlRoutes.js')(app);
 
 
 // Start our server so that it can begin listening to client requests.
-<<<<<<< HEAD
 db.sequelize.sync({force:true}).then(() => {
-=======
-db.sequelize.sync({}).then(() => {
->>>>>>> b8c4efb8524f92340b099331cc642cdc8c227985
   app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
   });

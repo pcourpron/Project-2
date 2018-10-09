@@ -30,6 +30,9 @@ $(document).on("click", "#submit", function(event){
             setCookie('auth_key',userInfo.auth_key,60)
                window.location.href = '/homepage'
         }
+        else{
+            alert('Email is already taken! Please use another email.')
+        }
     }
     );
 

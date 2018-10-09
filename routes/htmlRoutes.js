@@ -4,7 +4,6 @@ const db = require('../models');
 
 
 var getCookie = function (cookie_name, req) {
-  console.log(req)
   var name = cookie_name + "=";
   var ca = req.headers.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
@@ -17,12 +16,13 @@ var getCookie = function (cookie_name, req) {
     }
   }
   return "";
-}
+};
+
 function checkCookies(req) {
   var cEmail = getCookie('email', req);
   var cAuth_key = getCookie('auth_key', req);
-  return [cEmail, cAuth_key]
-}
+  return [cEmail, cAuth_key];
+};
 
 function redirect(req, res, badRoute, goodRoute) {
 
@@ -62,21 +62,22 @@ module.exports = (app) => {
 
 
   app.get('/homepage', (req, res) => {
-    redirect(req, res, 'landing.html', 'index.html')
+    redirect(req, res, 'landing.html', 'index.html');
   });
   app.get('/login', (req, res) => {
-    redirect(req, res, 'login.html', 'index.html')
+    redirect(req, res, 'login.html', 'index.html');
   });
-  app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/test.html'));
+  app.get('/sync', (req, res) => {
+    redirect(req, res, 'landing.html', 'sync.html');
+ 
   });
 
   app.get('/redirect_success', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/redirect_success.html'));
+    redirect(req, res, 'landing.html', 'redirect_success.html')
   });
 
   app.get('/log', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/log.html'));
+    redirect(req, res, 'landing.html', 'log.html')
   });
 
   app.get('/view', (req, res) => {
@@ -134,18 +135,21 @@ module.exports = (app) => {
   });
 
   app.get('/sync', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/sync.html'));
+    redirect(req, res, 'landing.html', 'sync.html')
+   
   });
 
   app.get('/settings', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/settings.html'));
+    redirect(req, res, 'landing.html', 'settings.html')
+ 
   });
 
   app.get('/chart', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/chart.html'));
+    redirect(req, res, 'landing.html', 'chart.html')
+    
   });
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/html/404.html'));
+    res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
 };

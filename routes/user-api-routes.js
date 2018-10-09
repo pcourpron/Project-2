@@ -9,9 +9,20 @@ module.exports = function (app) {
 
         var user = req.body
 
-        db.User.create(user).then(function (result) {
-            res.send(true)
-        });
+        db.User.find({where: 
+        {email: user.email}}).then(function(response){
+            if (response === null ){
+                db.User.create(user).then(function (result) {
+                    res.send(true)
+                });
+            }
+            else{
+                res.send(false)
+            }
+        })
+
+
+        
     });
 
     app.post("/api/loading",function(req,res){
@@ -86,6 +97,7 @@ module.exports = function (app) {
                                     var workout_time = new Date(1000 * workout.elapsed_time).toISOString().substr(11, 8)
 
                                     var workoutObject = {};
+                                    workoutObject.user_id = email;
                                     workoutObject.strava_id = workout.id;
                                     workoutObject.has_heartrate = workout.has_heartrate;
                                     workoutObject.category = workout.type;
@@ -93,7 +105,7 @@ module.exports = function (app) {
                                     workoutObject.time = time;
                                     workoutObject.distance = workout.distance;
                                     workoutObject.time = workout_time;
-                                    workoutObject.has_heartrate = workout.has_heartrate
+                                    workoutObject.has_heartrate = workout.has_heartrate; 
                                     
                                     if (workout.has_heartrate === true){
                                         request.get({

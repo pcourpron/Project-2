@@ -14,6 +14,9 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
 
     <style>
         .parallax {
@@ -27,8 +30,8 @@
                     background-repeat: no-repeat;
                     background-size: cover;
                     position: relative;
-                    margin-top:80px;
-                    height: 723px;
+                    
+                    height: 100%;
                     
                    
         }
@@ -38,7 +41,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top"  style='background-color: white'>
+    <nav class="navbar navbar-expand-md fixed-top"  style='background-color: transparent'>
         <div class='container'>
             <a class="navbar-brand" href="/" style='font-size : 40px; color:rgb(33, 83, 116)'>Ascent</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -66,22 +69,28 @@
     </nav>
 
     <div class='parallax' style='height:100%'>
-        <div class='container' style='width:100%'>
-            <div class='row justify-content-center'>
-                <div class='text-inner align-self-center text-center' style='padding: 100px 0 300px; line-height: 40px'>
-                    <h6 class="page-title animated activate fadeInDown" data-fx="fadeInDown" style='color: rgb(33, 83, 116)'>Introducing Ascent</h6>
-                    <h2 class="page-title animated activate fadeInDown" data-fx="fadeInDown" style='color: rgb(33, 83, 116)'>Data Driven Training</h2>
-                    <button class="btn-lg" href='/signup' data-fx="fadeInDown" style='background-color:transparent;border-radius:15px;color: rgb(33, 83, 116)'>Sign up</button>
-
+        <div class='container' style='width:100%;height: 100vh'>
+            
+            <div class='row justify-content-center align-items-center' style='height:90%'>
+                <div class='text-inner text-center' style=' line-height: 40px'>
+                    <h6 style='color: rgb(33, 83, 116)'>Introducing Ascent</h6>
+                    <h2 style='color: rgb(33, 83, 116)'>Data Driven Training</h2>
+                    <button class="btn-lg" href='/signup'  style='background-color:#CDCDCD;border-radius:15px;color: white'>Sign up</button>
+                
                 </div>
+               
             </div>
-            <div> </div>
+            <div class ='row justify-content-center' style= 'padding-bottom:30px'>
+                <i class="fas fa-angle-down fa-5x"style="color:white"></i>
+                </div>
+            
+  
         </div>
-    </div>
-    <div style=" background-color:teal" class='container-fluid' id ='explore'>
-        <div class ='row justify-content-center' style='padding-top:40px'>
-            <h3 style= "text-align: center;color:white;width:100%">Training tailored to you</h3>
-            <p style='font-size: 20px; padding: 0 80px; text-align: center; max-width: 1000px'>
+  
+    <div style=" background-color:#CDCDCD" class='container-fluid' id ='explore'>
+        <div class ='row justify-content-center' style='padding:60px 0'>
+            <h3 style= "text-align: center;color:rgb(33, 83, 116);width:100%">Training tailored to you</h3>
+            <p style='font-size: 20px; padding: 0 80px; text-align: center; max-width: 1000px; color:rgb(33, 83, 116)'>
                 With a incredible about of fitness plans and diets available to everyone, it can be tough
                 to choose which plan works best for you. Ascent uses data from your workouts and from your phone
                 to give you insights into how your lifestyle and workouts affects your fitness. 
