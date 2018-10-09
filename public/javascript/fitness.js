@@ -34,7 +34,6 @@ function checkCookies(){
             window.location.href = '/'
         }
         else {
-            $('body').display('inline')
 
         }
     }
