@@ -10,7 +10,37 @@ module.exports = function (app) {
         var user = req.body
 
         db.User.create(user).then(function (result) {
-            res.send(result)
+            res.send(true)
+        });
+    });
+
+    app.post("/api/loading",function(req,res){
+        var loginInfo = req.body
+
+        db.User.find({
+            where: loginInfo
+        }).then(function(results){
+            if (results.dataValues.email === loginInfo.email && results.dataValues.auth_key === loginInfo.auth_key){
+                res.send(true)
+            }
+            else{
+                res.send(false)
+            }
+        })
+        .catch(function(){
+            res.send(false)
+        })
+
+    })
+    app.post("/api/login", function (req, res) {4
+        var user = req.body
+        db.User.find({
+            where : {email: user.email}
+        }).then(function (results) {
+           if (user.password === results.dataValues.password){
+           res.send({email: user.email, auth_key :results.dataValues.auth_key})
+           }
+
         });
 
 
@@ -20,12 +50,14 @@ module.exports = function (app) {
     app.post("/api/stravaAccessCode", function (req, res) {
         var code = req.body['1']
         var email = req.body['2']
+        console.log(req)
 
         request.post({
-            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+            headers: { 'content-type': 'application/x-      ww-form-urlencoded' },
             url: `https://www.strava.com/oauth/token?client_id=29032&client_secret=0f9f5324b2a4ee9c2c68fcacf7013755710a91ec&code=${code}`,
             body: ""
         }, function (error, response, body) {
+            
             var auth_key = JSON.parse(body).access_token
             db.User.update({ strava_auth: auth_key }, {
                 where: { email: email }
@@ -38,7 +70,7 @@ module.exports = function (app) {
                         where:
                             { email: email }
                     }).then(function (response) {
-                        console.log(response)
+                      
                         var access_token = response.dataValues.strava_auth
                         request.get({
                             headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -46,6 +78,7 @@ module.exports = function (app) {
                             body: ""
                         }
                             , function (error, response, body) {
+                           
                                 JSON.parse(body).forEach(workout => {
                                     var i = 0 
                                     var date = workout.start_date_local.split('T')[0]

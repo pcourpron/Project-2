@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static('public'));
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,10 +22,15 @@ app.set('view engine', 'handlebars');
 
 const db = require('./models');
 
+
+app.use(express.static('public'));
+
+
 // Import routes and give the server access to them.
 require('./routes/workout-api-routes.js')(app);
 require('./routes/user-api-routes.js')(app);
 require('./routes/htmlRoutes.js')(app);
+
 
 // Start our server so that it can begin listening to client requests.
 db.sequelize.sync({}).then(() => {

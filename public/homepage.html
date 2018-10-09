@@ -8,30 +8,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="javascript/fitness.js"></script>
-
-  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src ="javascript/fitness.js"></script>
 </head>
 
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-      <a class="navbar-brand" href="/">Logo</a>
+      <a class="navbar-brand" href="/index.html">Logo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/log">Log a Workout</a>
-          <a class="nav-item nav-link" href="/view">View Workouts</a>
-          <a class="nav-item nav-link" href="/sync">Sync</a>
+          <a class="nav-item nav-link" href="/log.html">Log a Workout</a>
+          <a class="nav-item nav-link" href="/view.html">View Workouts</a>
+          <a class="nav-item nav-link" href="/sync.html">Sync</a>
         </div>
         <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/settings">Settings</a>
+          <a class="nav-item nav-link" href="/settings.html">Settings</a>
         </div>
       </div>
     </nav>
@@ -39,23 +37,17 @@
 
   <main class="container">
     <div class="row">
-      <select id="chart-timeframe">
-        <option value = "one-month">One Month</option>
-        <option value = "three-months" selected = "selected">Three Months</option>
-        <option value = "six-months">Six Months</option>
-        <option value = "one-year">One Year</option>
-      </select>
       <div class="col-md-12 col-lg-9 text-center">
         <div class="ct-chart" id="my-chart"></div>
       </div>
       <div class="col-md-12 col-lg-3 text-center d-flex flex-column justify-content-around">
-        <h3 class="display-4 mt-3 mt-lg-5" id="fitness-indicator" style="color: red">Fitness</h3>
-        <h3 class="display-4 mb-3 mb-lg-5" id="stress-indicator" style="color: red">Stress</h3>
+        <h3 class="display-4 mt-3 mt-lg-5" style="color: red">Fitness</h3>
+        <h3 class="display-4 mb-3 mb-lg-5" style="color: red">Stress</h3>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12 col-lg-9 mt-lg-5">
-        <h2 class="display-3 text-center" id="recommendation">You Need To Rest</h2>
+        <h2 class="display-3 text-center">You Need To Rest</h2>
       </div>
     </div>
   </main>
@@ -66,7 +58,7 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
-
+    
 </body>
 
 </html>

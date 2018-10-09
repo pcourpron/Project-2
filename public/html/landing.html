@@ -27,7 +27,8 @@
                     background-repeat: no-repeat;
                     background-size: cover;
                     position: relative;
-                    margin-top:80px
+                    margin-top:80px;
+                    height: 723px;
                     
                    
         }
@@ -39,7 +40,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-light fixed-top"  style='background-color: white'>
         <div class='container'>
-            <a class="navbar-brand" href="#" style='font-size : 40px; color:rgb(33, 83, 116)'>Ascent</a>
+            <a class="navbar-brand" href="/" style='font-size : 40px; color:rgb(33, 83, 116)'>Ascent</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -47,16 +48,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto" >
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" style='color:rgb(33, 83, 116)'>Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/" style='color:rgb(33, 83, 116)'>Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style='color:rgb(33, 83, 116)'>Explore</a>
+                        <a class="nav-link" href="#explore" style='color:rgb(33, 83, 116)'>Explore</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style='color:rgb(33, 83, 116)'>Login</a>
+                        <a class="nav-link" href="/login" style='color:rgb(33, 83, 116)'>Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style='color:rgb(33, 83, 116)'>Sign Up</a>
+                        <a class="nav-link" href="/signup" style='color:rgb(33, 83, 116)'>Sign Up</a>
                     </li>
 
                 </ul>
@@ -64,25 +65,33 @@
         </div>
     </nav>
 
-    <div class='parallax'>
+    <div class='parallax' style='height:100%'>
         <div class='container' style='width:100%'>
             <div class='row justify-content-center'>
                 <div class='text-inner align-self-center text-center' style='padding: 100px 0 300px; line-height: 40px'>
                     <h6 class="page-title animated activate fadeInDown" data-fx="fadeInDown" style='color: rgb(33, 83, 116)'>Introducing Ascent</h6>
                     <h2 class="page-title animated activate fadeInDown" data-fx="fadeInDown" style='color: rgb(33, 83, 116)'>Data Driven Training</h2>
-                    <button class="btn-lg" data-fx="fadeInDown" style='background-color:transparent;border-radius:15px;color: rgb(33, 83, 116)'>Sign up</button>
+                    <button class="btn-lg" href='/signup' data-fx="fadeInDown" style='background-color:transparent;border-radius:15px;color: rgb(33, 83, 116)'>Sign up</button>
 
                 </div>
             </div>
+            <div> </div>
         </div>
     </div>
-    <div class='container-fluid'>
-        <div style="height:1000px;background-color:red;font-size:36px">
-            Scroll Up and Down this page to see the parallax scrolling effect.
-            This div is just here to enable scrolling.
-            Tip: Try to remove the background-attachment property to remove the scrolling effect.
-        </div>
+    <div style=" background-color:teal" class='container-fluid' id ='explore'>
+        <div class ='row justify-content-center' style='padding-top:40px'>
+            <h3 style= "text-align: center;color:white;width:100%">Training tailored to you</h3>
+            <p style='font-size: 20px; padding: 0 80px; text-align: center; max-width: 1000px'>
+                With a incredible about of fitness plans and diets available to everyone, it can be tough
+                to choose which plan works best for you. Ascent uses data from your workouts and from your phone
+                to give you insights into how your lifestyle and workouts affects your fitness. 
+            </p>
 
+
+        </div>
+           
+            
+    
     </div>
 
 

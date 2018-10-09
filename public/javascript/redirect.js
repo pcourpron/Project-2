@@ -1,9 +1,23 @@
 $(document).ready(function(){
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code')
-    let email = localStorage.getItem('email')
+    var getCookie = function (cookie_name) {
+        var name = cookie_name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+      let email = getCookie('email')
     let info  =  { 1: code, 2: email}
-
+    console.log(info)
     $.ajax("/api/stravaAccessCode", {
         type: "POST",
         data: info
