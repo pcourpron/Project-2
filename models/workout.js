@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
   var Workout = sequelize.define("Workout", {
-    user_id : DataTypes.STRING,
+    user_id : DataTypes.INTEGER,
     category: DataTypes.STRING,
     distance: DataTypes.INTEGER,
     workout_length: DataTypes.TIME,
