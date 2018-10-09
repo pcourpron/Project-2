@@ -159,7 +159,7 @@ function makeRecommendation(){
         }
     }
     
-    else if(todayFitness < todayStress){
+    else if((todayFitness + 10) < todayStress){
         log("stress is greater than fitness");
         log("You should take a break");
         $("#recommendation").text("TAKE A REST FOO");
