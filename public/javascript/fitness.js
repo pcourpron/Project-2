@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    const log = console.log;
+
 var stress = [7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9];
 var fitnessScores = [7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9, 7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9, 7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9, 7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9, 7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9, 7, 8, 5, 4, 8, 6, 5, 4, 3, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 7, 7, 7, 9, 9, 9];
 // var scores = [9, 9, 9, 9, 8, 8, 8, 9, 7, 8, 9, 7, 9]
@@ -30,7 +32,7 @@ function getWorkouts(){
                 date = new Date().setMonth(today.getMonth()-12);
             break;
         }
-        console.log(date);
+        // console.log(date);
         selectTimeFrame(date)
 
         for(let i = 0; i<selectedWorkouts.length; i++){
@@ -46,11 +48,12 @@ function getWorkouts(){
             }
             }
         }
-        console.log(stressArray);
+        // console.log(stressArray);
         // console.log(Math.max(...stressArray))
        createEMA();
        createFitness();
        renderChart(EMAarray, fitnessArray);
+       makeRecommendation();
         // console.log(EMA, EMAarray, fitnessArray);
     })
 }
@@ -65,7 +68,6 @@ var fitness = 6;
 // Exponential moving average = [Close - previous EMA] * (2 / n+1) + previous EMA
 
 function createEMA(){
-    console.log("Create EMA", stressArray.length);
     EMA = 0;
     EMAarray = [];
     let multiplier;
@@ -78,7 +80,7 @@ function createEMA(){
         }
         EMA += (stressArray[i]-EMA)*multiplier;
         EMAarray.push(EMA);
-        console.log(EMA);
+        // console.log(EMA);
     }
 }
 
@@ -108,26 +110,25 @@ function renderChart(stress, fitness,){
         }
     },
     );//end chartist  
-    console.log("Chart rendered");
+    // console.log("Chart rendered");
 } // end renderChart
 
 function selectTimeFrame(date){
     let today = new Date();
     let maxDate = new Date(date)
-    console.log(maxDate);
+    // console.log(maxDate);
     let timeframe = Math.floor((today-maxDate)/(1000*60*60*24));
-    console.log(timeframe);
+    // console.log(timeframe);
     for(let i = 0; i< workouts.length; i++){
         let workoutDate = new Date(workouts[i].date+" 00:00");
-        console.log(workoutDate);
+        // console.log(workoutDate);
         if (Math.floor((today - workoutDate)/(1000*60*60*24)) <= timeframe){
             selectedWorkouts.push(workouts[i]);
         }
     }
-    console.log(selectedWorkouts)
 
     let timeGap = (Math.floor((new Date(selectedWorkouts[0].date) - maxDate)/(1000*60*60*24)));
-    console.log(timeGap);
+
     if (timeGap !== 0){
         for(let i = 0; i < timeGap; i++){
             stressArray.push(0);
@@ -135,11 +136,57 @@ function selectTimeFrame(date){
     }
 }
 
-// function toggleChart(date){
-//     let today = new Date();
-//     let maxDate = new Date(date)
-//     console.log(today);
-//     let difference = (today-maxDate)/(1000*60*60*24);
-//     console.log(Math.floor(difference));
-// }
+
+function makeRecommendation(){
+    let todayStress = EMAarray[EMAarray.length-1];
+    let stressComparison = EMAarray[EMAarray.length-7];
+    let stressTrend = todayStress - stressComparison;
+    console.log(stressTrend);
+
+    let todayFitness = fitnessArray[fitnessArray.length-1]
+    let fitnessComparison = fitnessArray[fitnessArray.length-15];
+    let fitnessTrend = todayFitness - fitnessComparison;
+    console.log(fitnessTrend);
+
+    if (todayFitness === todayStress){
+        log("Fitness and Stress are equal");
+        if ((fitnessTrend > 0 && stressTrend > 0) || (fitnessTrend < 0 && stressTrend > 0)){
+            log("You're good to go!")
+        }
+        else if ((fitnessTrend > 0 && stressTrend < 0) || (fitnessTrend < 0 && stressTrend < 0)){
+            log("Take it easy and keep recovering");
+            $("#recommendation").text("TAKE A REST FOO");
+        }
+    }
+    
+    else if(todayFitness < todayStress){
+        log("stress is greater than fitness");
+        log("You should take a break");
+        $("#recommendation").text("TAKE A REST FOO");
+    }
+
+    else {
+        log('fitness is greater than stress');
+        log("Let's GO!");
+        $("#recommendation").text("GET YO ASS MOVIN");
+    }
+
+    if(stressTrend > 0){
+        $("#stress-indicator").attr("style", "color: green");
+        console.log("stress is trending up");
+    }
+    else{
+        $("#stress-indicator").attr("style", "color: red");
+        console.log('stress is trending down');
+    }
+
+    if(fitnessTrend > 0){
+        $("#fitness-indicator").attr("style", "color: green");
+        console.log("fitness is going up");
+    }
+    else{
+        $("#fitness-indicator").attr("style", "color: red");
+        log("fitness going down");
+    }
+} // end recomendation function
 }); // ends documentReady
