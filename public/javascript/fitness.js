@@ -92,6 +92,17 @@ function getWorkouts(){
             }
             }
         }
+
+        let lastWorkoutDate = new Date(selectedWorkouts[selectedWorkouts.length-1].date + " 00:00");
+        let daysSinceLastWorkout = Math.floor((today - lastWorkoutDate)/(1000*60*60*24));
+
+        if(daysSinceLastWorkout > 0){
+            for(let i = 0; i < daysSinceLastWorkout; i++){
+                stressArray.push(0);
+            }
+        }
+        console.log(daysSinceLastWorkout, stressArray);
+
         // console.log(stressArray);
         // console.log(Math.max(...stressArray))
        createEMA();
@@ -178,6 +189,7 @@ function selectTimeFrame(date){
             stressArray.push(0);
         }
     }
+
 }
 
 
@@ -197,40 +209,40 @@ function makeRecommendation(){
         if ((fitnessTrend > 0 && stressTrend > 0) || (fitnessTrend < 0 && stressTrend > 0)){
             log("You're good to go!")
         }
-        else if ((fitnessTrend > 0 && stressTrend < 0) || (fitnessTrend < 0 && stressTrend < 0)){
-            log("Take it easy and keep recovering");
-            $("#recommendation").text("TAKE A REST FOO");
-        }
+            else if ((fitnessTrend > 0 && stressTrend < 0) || (fitnessTrend < 0 && stressTrend < 0)){
+                log("Take it easy and keep recovering");
+                $("#recommendation").text("TAKE A REST FOO");
+            }
     }
     
-    else if((todayFitness + 10) < todayStress){
-        log("stress is greater than fitness");
-        log("You should take a break");
-        $("#recommendation").text("TAKE A REST FOO");
-    }
+        else if((todayFitness + 10) < todayStress){
+            log("stress is greater than fitness");
+            log("You should take a break");
+            $("#recommendation").text("TAKE A REST FOO");
+        }
 
-    else {
-        log('fitness is greater than stress');
-        log("Let's GO!");
-        $("#recommendation").text("GET YO ASS MOVIN");
-    }
+        else {
+            log('fitness is greater than stress');
+            log("Let's GO!");
+            $("#recommendation").text("GET YO ASS MOVIN");
+        }
 
     if(stressTrend > 0){
         $("#stress-indicator").attr("style", "color: green");
         console.log("stress is trending up");
     }
-    else{
-        $("#stress-indicator").attr("style", "color: red");
-        console.log('stress is trending down');
-    }
+        else{
+            $("#stress-indicator").attr("style", "color: red");
+            console.log('stress is trending down');
+        }
 
     if(fitnessTrend > 0){
         $("#fitness-indicator").attr("style", "color: green");
         console.log("fitness is going up");
     }
-    else{
-        $("#fitness-indicator").attr("style", "color: red");
-        log("fitness going down");
-    }
+        else{
+            $("#fitness-indicator").attr("style", "color: red");
+            log("fitness going down");
+        }
 } // end recomendation function
 }); // ends documentReady
