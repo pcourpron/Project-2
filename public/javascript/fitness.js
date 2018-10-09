@@ -9,6 +9,8 @@ var workouts;
 var selectedWorkouts = [];
 
 function getWorkouts(){
+    selectedWorkouts = [];
+    stressArray = [];
     $.get("/api/workout/", function(data){
         workouts = data;
         var chartTimeframe = $("#chart-timeframe").val();
@@ -25,7 +27,7 @@ function getWorkouts(){
                 date = new Date().setMonth(today.getMonth()-6);
             break;
             case ("one-year"):
-                date = new Date().setYear(today.getYear()-1);
+                date = new Date().setMonth(today.getMonth()-12);
             break;
         }
         console.log(date);
@@ -45,7 +47,7 @@ function getWorkouts(){
             }
         }
         console.log(stressArray);
-        console.log(Math.max(...stressArray))
+        // console.log(Math.max(...stressArray))
        createEMA();
        createFitness();
        renderChart(EMAarray, fitnessArray);
@@ -63,6 +65,9 @@ var fitness = 6;
 // Exponential moving average = [Close - previous EMA] * (2 / n+1) + previous EMA
 
 function createEMA(){
+    console.log("Create EMA", stressArray.length);
+    EMA = 0;
+    EMAarray = [];
     let multiplier;
     for(let i=0; i < stressArray.length; i++){
         if(i===0){
@@ -78,6 +83,8 @@ function createEMA(){
 }
 
 function createFitness(){
+    fitness = 6;
+    fitnessArray = [];
     let multiplier = (2/43);
     for(let i=0; i<stressArray.length; i++){
         fitness += (stressArray[i]-fitness)*multiplier;
@@ -111,7 +118,7 @@ function selectTimeFrame(date){
     let timeframe = Math.floor((today-maxDate)/(1000*60*60*24));
     console.log(timeframe);
     for(let i = 0; i< workouts.length; i++){
-        let workoutDate = new Date(workouts[i].date);
+        let workoutDate = new Date(workouts[i].date+" 00:00");
         console.log(workoutDate);
         if (Math.floor((today - workoutDate)/(1000*60*60*24)) <= timeframe){
             selectedWorkouts.push(workouts[i]);
