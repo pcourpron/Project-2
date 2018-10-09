@@ -12,9 +12,21 @@ module.exports = function (app) {
         db.User.find({where: 
         {email: user.email}}).then(function(response){
             if (response === null ){
-                db.User.create(user).then(function (result) {
-                    res.send(true)
-                });
+                db.User.find({order: ["user_id"]}).then(function(response){
+                    if (response !== null){
+                        user.user_id = response.dataValues.user_id + 1
+                        db.User.create(user).then(function (result) {
+                            res.send({'test':user.user_id})
+                        });
+                    }
+                    else{
+                        user.user_id = 1234124513
+                        db.User.create(user).then(function (result) {
+                            res.send({'test':user.user_id})
+                        });
+                    }
+                    
+                }) 
             }
             else{
                 res.send(false)
@@ -61,7 +73,7 @@ module.exports = function (app) {
     app.post("/api/stravaAccessCode", function (req, res) {
         var code = req.body['1']
         var email = req.body['2']
-        console.log(req)
+        var user_id = req.body['3']
 
         request.post({
             headers: { 'content-type': 'application/x-      ww-form-urlencoded' },
@@ -106,6 +118,7 @@ module.exports = function (app) {
                                     workoutObject.distance = workout.distance;
                                     workoutObject.time = workout_time;
                                     workoutObject.has_heartrate = workout.has_heartrate; 
+                                    workoutObject.user_id = user_id
                                     
                                     if (workout.has_heartrate === true){
                                         request.get({

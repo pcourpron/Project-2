@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -35,16 +34,38 @@
                    
         }
 
-        .fa-angle-down:hover{
+        .changeColor{
+          background-color: whitesmoke;
+          transition: 0.2s
+
+        }
+        .startColor{
+          background-color: transparent;
+          transition: 0.2s
 
         }
        
     </style>
 
+    <script>
+    $(function() {
+   $(window).scroll(function () {
+      if ($(this).scrollTop() > 583) {
+         $('#navbar').addClass('changeColor')
+         $('#navbar').removeClass('startColor')
+      }
+      if ($(this).scrollTop() < 583) {
+         $('#navbar').removeClass('changeColor')
+         $('#navbar').addClass('startColor')
+      }
+   });
+});
+</script>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md fixed-top"  style='background-color: transparent'>
+    <nav id ='navbar' class="navbar navbar-expand-md fixed-top navbar-light" >
         <div class='container'>
             <a class="navbar-brand" href="/" style='font-size : 40px; color:rgb(33, 83, 116)'>Ascent</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
@@ -74,7 +95,7 @@
     <div class='parallax' style='height:100%'>
         <div class='container' style='width:100%;height: 100vh'>
             
-            <div class='row justify-content-center align-items-center' style='height:90%'>
+            <div class='row justify-content-center align-items-center' style='height:87%'>
                 <div class='text-inner text-center' style=' line-height: 40px'>
                     <h6 style='color: rgb(33, 83, 116)'>Introducing Ascent</h6>
                     <h2 style='color: rgb(33, 83, 116)'>Data Driven Training</h2>
@@ -85,27 +106,39 @@
             </div>
             <div class ='row justify-content-center' style= 'padding-bottom:30px'>
                 <div style='border-radius:40px; border: solid white 2px; width: 80px' class ='d-flex justify-content-center' >
-                    <i class="fas fa-angle-down fa-5x"style="color:white"></i>
+                    <i class="fas fa-angle-down fa-5x" style="color:white"></i>
                 </div>
                 </div>
             
   
         </div>
   
-    <div style=" background-color:#CDCDCD" class='container-fluid' id ='explore'>
-        <div class ='row justify-content-center' style='padding:60px 0'>
+    <div  class ='container-fluid' id ='explore'>
+        <div class ='row justify-content-center' style='padding:60px 0;background-color:rgb(240, 240, 240)'>
             <h3 style= "text-align: center;color:rgb(33, 83, 116);width:100%">Training tailored to you</h3>
             <p style='font-size: 20px; padding: 0 80px; text-align: center; max-width: 1000px; color:rgb(33, 83, 116)'>
-                With a incredible about of fitness plans and diets available to everyone, it can be tough
+                With an incredible amount of fitness plans and diets available to everyone, it can be tough
                 to choose which plan works best for you. Ascent uses data from your workouts and from your phone
                 to give you insights into how your lifestyle and workouts affects your fitness. 
             </p>
-
-
         </div>
-           
-            
-    
+        <div class ='row' style='padding:60px 0;background-color:white'>
+            <div class= 'col-sm-6 d-flex justify-content-center'>
+                <img style = 'height: 500px ' src='https://images.unsplash.com/photo-1520334363269-c1b342d17261?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fac10facb5f0158dc8b80a19c3d04fc8&auto=format&fit=crop&w=674&q=80'>
+            </div>
+            <div class= 'col-sm-6 d-flex flex-column text-center justify-content-center'>
+                    <i class="fas fa-chart-area fa-7x"></i>
+                    <h4 style='width:100%'>Measure Your Performance</h4>
+                
+             
+                   <p>Ascent tackles your data to let you know when you're on track 
+                       or when some changes need to be made.
+                   </p>
+                
+               
+            </div>
+        </div>
+        
     </div>
 
 

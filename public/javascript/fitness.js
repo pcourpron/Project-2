@@ -24,6 +24,7 @@ function checkCookies(){
         email:email,
         auth_key:auth_key
     }
+
     $.ajax("/api/loading", {
         type: "POST",
         data: userInfo
