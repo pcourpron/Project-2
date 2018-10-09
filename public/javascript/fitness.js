@@ -181,8 +181,8 @@ function renderChart(stress, fitness,){
         if(data.type === 'line' || data.type === 'area') {
           data.element.animate({
             d: {
-              begin: 2000 * data.index,
-              dur: 1000,
+              begin: 500 * data.index,
+              dur: 1400,
               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
               to: data.path.clone().stringify(),
               easing: Chartist.Svg.Easing.easeOutQuint
