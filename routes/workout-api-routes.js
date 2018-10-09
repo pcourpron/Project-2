@@ -12,7 +12,6 @@ module.exports = function(app){
     app.post("/api/workout/", function(req, res){
         var workout = req.body;
         db.Workout.create(workout).then(function(result){
-            
             res.end();
         });
     });
