@@ -24,7 +24,6 @@ function checkCookies(req) {
 
 function redirect(req, res, badRoute, goodRoute) {
   if (req.headers.cookie === undefined) {
-
     res.redirect('/');
   } else {
     var info = checkCookies(req);
@@ -32,27 +31,24 @@ function redirect(req, res, badRoute, goodRoute) {
     db.User.find({
       where: {
         user_id: info[0],
-        auth_key: info[1]
-      }
+        auth_key: info[1],
+      },
     })
-      .then(function (results) {
+      .then(function(results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
-
         }
       })
-      .catch(function (results) {
+      .catch(function(results) {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
-      })
+      });
   }
 }
 function redirectLogin(req, res, badRoute, goodRoute) {
-
   if (req.headers.cookie === undefined) {
-    res.sendFile(path.join(__dirname, '../public/html/' + badRoute))
-  }
-  else {
-    var info = checkCookies(req)
+    res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
+  } else {
+    var info = checkCookies(req);
     db.User.find({
       where: {
         email: info[0],
@@ -67,12 +63,9 @@ function redirectLogin(req, res, badRoute, goodRoute) {
       })
 
       .catch(function() {
-
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
-
-
 }
 
 module.exports = (app) => {
@@ -88,8 +81,7 @@ module.exports = (app) => {
     redirect(req, res, 'landing.html', 'index.html');
   });
   app.get('/login', (req, res) => {
-  
-    redirectLogin(req, res,'login.html','index.html');
+    redirectLogin(req, res, 'login.html', 'index.html');
   });
   app.get('/sync', (req, res) => {
     redirect(req, res, 'landing.html', 'sync.html');
@@ -123,31 +115,31 @@ module.exports = (app) => {
           }
         });
         switch (workout.dataValues.category) {
-          case 'Crossfit':
+          case 'crossfit':
             crossfitArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Hike':
+          case 'hike':
             hikeArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Ride':
+          case 'ride':
             rideArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Run':
+          case 'run':
             runArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Swim':
+          case 'swim':
             swimArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Walk':
+          case 'walk':
             walkArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
-          case 'Other':
+          case 'other':
             otherArray.push(workout.dataValues);
             allArray.push(workout.dataValues);
             break;
@@ -180,8 +172,7 @@ module.exports = (app) => {
     redirect(req, res, 'landing.html', 'chart.html');
   });
   app.get('/redirect_success', (req, res) => {
-    redirect(req, res, 'landing.html', 'index.html')
-    
+    redirect(req, res, 'landing.html', 'index.html');
   });
 
   app.get('*', (req, res) => {
