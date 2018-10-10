@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var email
 
     const log = console.log;
 function getCookie(cookie_name){
@@ -24,7 +25,6 @@ function checkCookies(){
         email:email,
         auth_key:auth_key
     }
-
     $.ajax("/api/loading", {
         type: "POST",
         data: userInfo
