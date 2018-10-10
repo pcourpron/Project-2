@@ -22,6 +22,7 @@ $(document).ready(function(){
         type: "POST",
         data: info
     }).then(function () {
+      console.log('hi')
         
     }
     );
