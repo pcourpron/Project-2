@@ -131,10 +131,16 @@ module.exports = function (app) {
                                     var date = workout.start_date_local.split('T')[0]
                                     var time = workout.start_date_local.split('T')[0]
                                     var workout_time = new Date(1000 * workout.elapsed_time).toISOString().substr(11, 8)
-
+                                    
                                     var workoutObject = {};
                                     workoutObject.user_id = email;
-                                    workoutObject.strava_id = workout.id;
+                                    if (workout.id === 'Workout'){
+                                        workoutObject.strava_id = 'Other';
+                                    }
+                                    else{
+                                        workoutObject.strava_id = workout.id;
+                                    }
+                                   
                                     workoutObject.has_heartrate = workout.has_heartrate;
                                     workoutObject.category = workout.type;
                                     workoutObject.date = date;
