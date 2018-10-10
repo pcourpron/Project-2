@@ -94,8 +94,7 @@ module.exports = function (app) {
 
     app.post("/api/stravaAccessCode", function (req, res) {
         var code = req.body['1']
-        var email = req.body['2']
-        var user_id = req.body['3']
+        var user_id = req.body['2']
 
         request.post({
             headers: { 'content-type': 'application/x-      ww-form-urlencoded' },
@@ -105,7 +104,7 @@ module.exports = function (app) {
             
             var auth_key = JSON.parse(body).access_token
             db.User.update({ strava_auth: auth_key }, {
-                where: { user_id: email }
+                where: { user_id: user_id }
             }).then(function () {
 
                 db.User.find({
@@ -113,7 +112,7 @@ module.exports = function (app) {
                 },
                     {
                         where:
-                            { email: email }
+                            { user_id: user_id }
                     }).then(function (response) {
                       console.log(response)
                         var access_token = response.dataValues.strava_auth
@@ -131,7 +130,7 @@ module.exports = function (app) {
                                     var workout_time = new Date(1000 * workout.elapsed_time).toISOString().substr(11, 8)
                                     
                                     var workoutObject = {};
-                                    workoutObject.user_id = email;
+                                    workoutObject.user_id = user_id;
                                     if (workout.id === 'Workout'){
                                         workoutObject.strava_id = 'Other';
                                     }
@@ -146,7 +145,7 @@ module.exports = function (app) {
                                     workoutObject.distance = workout.distance;
                                     workoutObject.time = workout_time;
                                     workoutObject.has_heartrate = workout.has_heartrate; 
-                                    workoutObject.user_id = user_id
+                                    
                                     
                                     if (workout.has_heartrate === true){
                                         request.get({
