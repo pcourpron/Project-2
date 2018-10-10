@@ -12,14 +12,36 @@
   <link rel="stylesheet" href="css/chart.css">
   <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="javascript/fitness.js"></script>
-
-  
+  <script defer src="javascript/fitness.js"></script>
 </head>
 
 <body>
+  <div class="loading">
+    <span style>
+      <img src="images/ajax-loader.gif">
+    </span>
+  </div>
+  <style>
+    .loading {
+      display: block;
+      background: black;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      height: 100%;
+      width: 100%;
+      z-index: 99999999999;
+      }
+      .loading span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 999;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      }
+      </style>
 
-   
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
       <a class="navbar-brand" href="/homepage">Logo</a>
@@ -43,10 +65,10 @@
   <main class="container">
     <div class="row">
       <select id="chart-timeframe">
-        <option value = "one-month">One Month</option>
-        <option value = "three-months" selected = "selected">Three Months</option>
-        <option value = "six-months">Six Months</option>
-        <option value = "one-year">One Year</option>
+        <option value="one-month">One Month</option>
+        <option value="three-months" selected="selected">Three Months</option>
+        <option value="six-months">Six Months</option>
+        <option value="one-year">One Year</option>
       </select>
       <div class="col-md-12 col-lg-9 text-center" style="position: relative">
         <div class="ct-chart" id="my-chart">
@@ -71,6 +93,11 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $('.loading').fadeOut(1000);
+    });
+  </script>
 
 </body>
 
