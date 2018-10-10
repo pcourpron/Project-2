@@ -15,7 +15,6 @@ date.addEventListener('keyup', function (event) {
   
   if ( isValidDate ) {
     btn = false;
-    alert("insert correct date")
   } else {  
     btn = true;
   }
@@ -26,7 +25,6 @@ workOut_length.addEventListener('keyup', function (event) {
 
     if ( isValidWorkOutLength.value === "") {
         btn = false;
-        alert("insert a bloody workout length")
       } else {
         btn = true;
       }
@@ -67,8 +65,7 @@ pace.addEventListener('keyup', function (event) {
     });  
      
   btn.addEventListener('click', function (event) {
-  table.btn();
-  console.log(table.btn)
+  return
 });
 
 }); 
