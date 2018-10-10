@@ -3,7 +3,7 @@ $(document).ready(function () {
         event.preventDefault();
         console.log("submit")
         var stress_score = 0
-        switch (RPE) {
+        switch (rpe) {
             case 1:
                 stress_score += 20 / 60 * parseInt($('workout_length').val().trim())
                 break;
