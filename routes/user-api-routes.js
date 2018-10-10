@@ -95,6 +95,8 @@ module.exports = function (app) {
     app.post("/api/stravaAccessCode", function (req, res) {
         var code = req.body['1']
         var user_id = req.body['2']
+        console.log('------------------------------------------------------------------')
+        console.log(user_id)
         
 
         request.post({
