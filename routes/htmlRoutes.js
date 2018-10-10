@@ -1,10 +1,8 @@
 const path = require('path');
 const db = require('../models');
 
-
-
-var getCookie = function (cookie_name, req) {
-  var name = cookie_name + "=";
+var getCookie = function(cookie_name, req) {
+  var name = cookie_name + '=';
   var ca = req.headers.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
     var c = ca[i];
@@ -15,51 +13,45 @@ var getCookie = function (cookie_name, req) {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
+  return '';
 };
 
 function checkCookies(req) {
   var cEmail = getCookie('email', req);
   var cAuth_key = getCookie('auth_key', req);
   return [cEmail, cAuth_key];
-};
+}
 
 function redirect(req, res, badRoute, goodRoute) {
-
   if (req.headers.cookie === undefined) {
-    
-    res.redirect('/')
-  }
-  else {
-    var info = checkCookies(req)
+    res.redirect('/');
+  } else {
+    var info = checkCookies(req);
     db.User.find({
       where: {
         email: info[0],
-        auth_key: info[1]
-      }
+        auth_key: info[1],
+      },
     })
-      .then(function (results) {
+      .then(function(results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
-
         }
       })
-      .catch(function () {
+      .catch(function() {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
-      })
+      });
   }
 }
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
-
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
 
   app.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/signup.html'));
   });
-
 
   app.get('/homepage', (req, res) => {
     redirect(req, res, 'landing.html', 'index.html');
@@ -69,15 +61,14 @@ module.exports = (app) => {
   });
   app.get('/sync', (req, res) => {
     redirect(req, res, 'landing.html', 'sync.html');
- 
   });
 
   app.get('/redirect_success', (req, res) => {
-    redirect(req, res, 'landing.html', 'redirect_success.html')
+    redirect(req, res, 'landing.html', 'redirect_success.html');
   });
 
   app.get('/log', (req, res) => {
-    redirect(req, res, 'landing.html', 'log.html')
+    redirect(req, res, 'landing.html', 'log.html');
   });
 
   app.get('/view', (req, res) => {
@@ -146,18 +137,15 @@ module.exports = (app) => {
   });
 
   app.get('/sync', (req, res) => {
-    redirect(req, res, 'landing.html', 'sync.html')
-   
+    redirect(req, res, 'landing.html', 'sync.html');
   });
 
   app.get('/settings', (req, res) => {
-    redirect(req, res, 'landing.html', 'settings.html')
- 
+    redirect(req, res, 'landing.html', 'settings.html');
   });
 
   app.get('/chart', (req, res) => {
-    redirect(req, res, 'landing.html', 'chart.html')
-    
+    redirect(req, res, 'landing.html', 'chart.html');
   });
 
   app.get('*', (req, res) => {
