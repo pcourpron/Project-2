@@ -171,9 +171,7 @@ module.exports = (app) => {
   app.get('/chart', (req, res) => {
     redirect(req, res, 'landing.html', 'chart.html');
   });
-  app.get('/redirect_success', (req, res) => {
-    redirect(req, res, 'landing.html', 'index.html');
-  });
+
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
