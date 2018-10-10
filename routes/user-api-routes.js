@@ -14,13 +14,11 @@ module.exports = function (app) {
         db.User.find({where: 
         {email: user.email}}).then(function(response){
             if (response === null ){
-                db.User.find({order: ["user_id"]}).then(function(response){
+                db.User.find({order: [["user_id"], sequelize.fn('max', sequelize.col('user_id'))]}).then(function(response){
                     if (response !== null){
                         user.user_id = response.dataValues.user_id + 1
-
                         res.cookie("email", user.user_id, {expires: new Date(Date.now() + 999999999)});
                         res.cookie("auth_key", auth_key, {expires: new Date(Date.now() + 999999999)});
-                        
                         db.User.create(user).then(function (result) {
                             res.redirect('/homepage')
                         });
