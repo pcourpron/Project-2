@@ -80,6 +80,7 @@ function getWorkouts(){
         }
         // console.log(date);
         if(workouts.length > 0){
+            $(".watermark").text("");
             selectTimeFrame(date);
 
             for(let i = 0; i<selectedWorkouts.length; i++){
@@ -107,6 +108,7 @@ function getWorkouts(){
             console.log(daysSinceLastWorkout, stressArray);
         }
         else{
+            $(".watermark").text("No Data Available");
             log("NO DATA")
         }
 
@@ -160,8 +162,14 @@ function renderChart(stress, fitness,){
 
    var chart = new Chartist.Line(".ct-chart", {
         series: [   
-            stress, 
-            fitness
+            {
+                name: "stress", 
+                data: stress
+            },
+            {
+                name: "fitness", 
+                data: fitness
+            }
         ]
     },
     {
