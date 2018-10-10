@@ -60,6 +60,7 @@ function getWorkouts(){
     stressArray = [];
     $.get("/api/workout/", function(data){
         workouts = data;
+        console.log(data, "this is the data");
         var chartTimeframe = $("#chart-timeframe").val();
         let date;
         let today = new Date();
@@ -78,31 +79,36 @@ function getWorkouts(){
             break;
         }
         // console.log(date);
-        selectTimeFrame(date)
+        if(workouts.length > 0){
+            selectTimeFrame(date);
 
-        for(let i = 0; i<selectedWorkouts.length; i++){
-            stressArray.push(selectedWorkouts[i].stress_score);
-            if (i < selectedWorkouts.length-1){
-                let date1 = new Date(selectedWorkouts[i].date);
-            let date2 = new Date(selectedWorkouts[i+1].date);
-            let difference = (date2-date1)/(1000*60*60*24);
-            if(difference > 1){
-                for (let i = 0; i < difference; i++){
+            for(let i = 0; i<selectedWorkouts.length; i++){
+                stressArray.push(selectedWorkouts[i].stress_score);
+                if (i < selectedWorkouts.length-1){
+                    let date1 = new Date(selectedWorkouts[i].date);
+                let date2 = new Date(selectedWorkouts[i+1].date);
+                let difference = (date2-date1)/(1000*60*60*24);
+                if(difference > 1){
+                    for (let i = 0; i < difference; i++){
+                        stressArray.push(0);
+                    }
+                }
+                }
+            }
+    
+            let lastWorkoutDate = new Date(selectedWorkouts[selectedWorkouts.length-1].date + " 00:00");
+            let daysSinceLastWorkout = Math.floor((today - lastWorkoutDate)/(1000*60*60*24));
+    
+            if(daysSinceLastWorkout > 0){
+                for(let i = 0; i < daysSinceLastWorkout; i++){
                     stressArray.push(0);
                 }
             }
-            }
+            console.log(daysSinceLastWorkout, stressArray);
         }
-
-        let lastWorkoutDate = new Date(selectedWorkouts[selectedWorkouts.length-1].date + " 00:00");
-        let daysSinceLastWorkout = Math.floor((today - lastWorkoutDate)/(1000*60*60*24));
-
-        if(daysSinceLastWorkout > 0){
-            for(let i = 0; i < daysSinceLastWorkout; i++){
-                stressArray.push(0);
-            }
+        else{
+            log("NO DATA")
         }
-        console.log(daysSinceLastWorkout, stressArray);
 
         // console.log(stressArray);
         // console.log(Math.max(...stressArray))
@@ -152,7 +158,7 @@ function createFitness(){
 
 function renderChart(stress, fitness,){
 
-    new Chartist.Line(".ct-chart", {
+   var chart = new Chartist.Line(".ct-chart", {
         series: [   
             stress, 
             fitness
@@ -161,11 +167,29 @@ function renderChart(stress, fitness,){
     {
         width: 800,
         height: 600, 
+        showPoint: false, 
+        showArea: true, 
         axisY: {
             low: 0 
+        },
+        axisX:{
+            showGrid: false
+        } 
+    });//end chartist  
+
+    chart.on('draw', function(data) {
+        if(data.type === 'line' || data.type === 'area') {
+          data.element.animate({
+            d: {
+              begin: 500 * data.index,
+              dur: 1400,
+              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+              to: data.path.clone().stringify(),
+              easing: Chartist.Svg.Easing.easeOutQuint
+            }
+          });
         }
-    },
-    );//end chartist  
+      });// on draw function
     // console.log("Chart rendered");
 } // end renderChart
 
