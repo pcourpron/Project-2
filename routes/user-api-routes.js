@@ -117,7 +117,7 @@ module.exports = function (app) {
                         where:
                             { email: email }
                     }).then(function (response) {
-                      
+                      console.log(response)
                         var access_token = response.dataValues.strava_auth
                         request.get({
                             headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -125,7 +125,8 @@ module.exports = function (app) {
                             body: ""
                         }
                             , function (error, response, body) {
-                           console.log(body)
+                           
+            
                                 JSON.parse(body).forEach(workout => {
                                     var i = 0 
                                     var date = workout.start_date_local.split('T')[0]
