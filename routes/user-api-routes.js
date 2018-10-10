@@ -107,7 +107,7 @@ module.exports = function (app) {
             
             var auth_key = JSON.parse(body).access_token
             db.User.update({ strava_auth: auth_key }, {
-                where: { email: email }
+                where: { user_id: email }
             }).then(function () {
 
                 db.User.find({
@@ -117,7 +117,7 @@ module.exports = function (app) {
                         where:
                             { email: email }
                     }).then(function (response) {
-                      
+                      console.log(response)
                         var access_token = response.dataValues.strava_auth
                         request.get({
                             headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -125,7 +125,7 @@ module.exports = function (app) {
                             body: ""
                         }
                             , function (error, response, body) {
-                           console.log(body)
+                                if (body!==null){
                                 JSON.parse(body).forEach(workout => {
                                     var i = 0 
                                     var date = workout.start_date_local.split('T')[0]
@@ -157,16 +157,16 @@ module.exports = function (app) {
                                             body: ""
                                         },function(error,response,body){
                                             if (i===0){
-                                                var stress_score = 0 
-                                                var max = 195
-                                                var heartrate = JSON.parse(body).heartrate.data
+                                                var stress_score = 0;
+                                                var max = 195;
+                                                var heartrate = JSON.parse(body).heartrate.data;
                                                
                                                 heartrate.forEach(element => {
                                                     if (element > .50*max && element < .533*max){
-                                                        stress_score += 20/3600
+                                                        stress_score += 20/3600;
                                                     }
                                                     else if (element > .533*max && element < .566*max){
-                                                        stress_score += 30/3600
+                                                        stress_score += 30/3600;
                                                     } 
                                                     else if (element > .566*max && element <= .6*max){
                                                         stress_score += 40/3600
@@ -211,8 +211,11 @@ module.exports = function (app) {
                                     
 
                                 });
+                            }
 
                             })
+
+                        
 
                     })
 

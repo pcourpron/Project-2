@@ -96,7 +96,7 @@ module.exports = (app) => {
   });
 
   app.get('/redirect_success', (req, res) => {
-    redirect(req, res, 'landing.html', 'redirect_success.html');
+    redirect(req, res, 'landing.html', 'index.html');
   });
 
   app.get('/log', (req, res) => {
