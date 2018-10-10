@@ -61,6 +61,10 @@ for (let i = 0; i<365; i++){
 
 
 function getWorkouts(){
+    stressArray = [];
+    for (let i = 0; i<365; i++){
+        stressArray.push(0);
+    }
     selectedWorkouts = [];
     // stressArray = [];
     $.get("/api/workout/", function(data){
@@ -68,10 +72,11 @@ function getWorkouts(){
         var chartTimeframe = $("#chart-timeframe").val();
         let date;
         let today = new Date();
-        console.log(today);
+
         switch (chartTimeframe){
             case ("one-month"):
                 date = new Date().setMonth(today.getMonth()-1);
+                console.log(new Date(date));
             break;
             case ("three-months"):
                 date = new Date().setMonth(today.getMonth()-3);
@@ -100,19 +105,21 @@ function getWorkouts(){
                 }
                 }
             }
-            console.log(stressArray.length, stressArray);
     
             let lastWorkoutDate = new Date(workouts[workouts.length-1].date + " 00:00");
+            console.log(lastWorkoutDate);
             let daysSinceLastWorkout = Math.floor((today - lastWorkoutDate)/(1000*60*60*24));
+            console.log(daysSinceLastWorkout);
     
             if(daysSinceLastWorkout > 0){
                 for(let i = 0; i < daysSinceLastWorkout; i++){
                     stressArray.push(0);
                 }
+                console.log(stressArray);
             }
             // console.log(daysSinceLastWorkout, stressArray);
 
-            let days = Math.floor((today - date)/(1000*60*60*24));
+            let days = Math.floor((today - date)/(1000*60*60*24)) + 1;
             console.log(days);
             createEMA(days);
             createFitness(days);
@@ -125,7 +132,7 @@ function getWorkouts(){
         // console.log(stressArray);
         // console.log(Math.max(...stressArray))
        
-       renderChart(chartEMA, chartFitness);
+       renderChart(chartEMA, chartFitness, chartTimeframe, date);
        makeRecommendation();
         // console.log(EMA, EMAarray, fitnessArray);
     })
@@ -147,6 +154,7 @@ function createEMA(days){
     EMAarray = [];
     let multiplier;
     let start = stressArray.length-366;
+    console.log(start);
     for(let i=start; i < stressArray.length-1; i++){
         if(i===0){
             multiplier=1;
@@ -157,7 +165,6 @@ function createEMA(days){
         EMA += (stressArray[i]-EMA)*multiplier;
         EMAarray.push(EMA);
     }
-    console.log(EMAarray.length, EMAarray);
     let index = 366-days;
     chartEMA = EMAarray.slice(index);
     console.log(chartEMA.length, chartEMA);
@@ -176,9 +183,53 @@ function createFitness(days){
     chartFitness = fitnessArray.slice(index);
 }
 
-function renderChart(stress, fitness){
+function renderChart(stress, fitness, timeframe, date){
+
+    let labels = [];
+    let labelIncrement;
+
+    switch(timeframe){
+        case ("one-month"):
+            labelIncrement = 3;
+            for (let i = 0; i < 30 ; i++){
+                let newLabel = new Date(date+(i*(1000*60*60*24)));
+                let month = newLabel.getMonth()+1;
+                let day = newLabel.getDate();
+                labels.push(month+"/"+day);
+            }
+            console.log(labels);
+        break;
+        case ("three-months"):
+        labelIncrement = 9;
+        for (let i = 0; i < 90; i++){
+            let newLabel = new Date(date+(i*(1000*60*60*24)));
+            let month = newLabel.getMonth()+1;
+            let day = newLabel.getDate();
+            labels.push(month+"/"+day);
+        }
+        console.log(labels);
+        break;
+        case ("six-months"):
+            for (let i = 0; i < 180; i++){
+                let newLabel = new Date(date+(i*(1000*60*60*24)));
+                let month = newLabel.getMonth()+1;
+                let day = newLabel.getDate();
+                labels.push(month+"/"+day);
+            }
+        break;
+        case ("one-year"):
+            for (let i = 0; i < 365; i++){
+                let newLabel = new Date(date+(i*(1000*60*60*24)));
+                let month = newLabel.getMonth()+1;
+                let day = newLabel.getDate();
+                labels.push(month+"/"+day);
+            }
+        break;
+    }
+
 
    var chart = new Chartist.Line(".ct-chart", {
+        labels: labels, 
         series: [   
             {
                 name: "stress", 
@@ -191,15 +242,42 @@ function renderChart(stress, fitness){
         ]
     },
     {
-        width: 800,
-        height: 600, 
+        height: 400,
         showPoint: false, 
         showArea: true, 
         axisY: {
             low: 0 
         },
         axisX:{
-            showGrid: false
+            showGrid: true, 
+            labelInterpolationFnc: function(value, index){
+
+                switch (timeframe){
+                    case ("one-month"):  
+                        return index % labelIncrement === 0 || index === labels.length-1 ? value : null;
+                    
+                    case ("three-months"):
+                        return index % labelIncrement === 0 || index === labels.length-1 ? value : null;
+
+                    case ("six-months"):
+                        let sixLabel = value.split("/");
+                        if (sixLabel[1] === "1" || sixLabel[1] === "15"){
+                            return value
+                        }
+                        else{
+                            return value = null;
+                        }
+                    case ("one-year"):
+                        let yearLabel = value.split("/");
+                        if (yearLabel[1] === "1"){
+                            return value
+                        }
+                        else{
+                            return value = null;
+                        }
+                }
+                
+            }
         } 
     });//end chartist  
 
@@ -207,8 +285,8 @@ function renderChart(stress, fitness){
         if(data.type === 'line' || data.type === 'area') {
           data.element.animate({
             d: {
-              begin: 500 * data.index,
-              dur: 1400,
+              begin: 800 * data.index,
+              dur: 2500,
               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
               to: data.path.clone().stringify(),
               easing: Chartist.Svg.Easing.easeOutQuint

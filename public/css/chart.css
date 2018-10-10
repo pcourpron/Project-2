@@ -1,15 +1,15 @@
 .ct-series-a .ct-area{
-    fill: red;
+    fill: rgb(45, 166, 179);
 }
 
 .ct-series-a .ct-line{
-    stroke: red;
+    stroke: rgb(45, 166, 179);
 }
 
 .ct-series-b .ct-area{
-    fill: purple;
+    fill: rgb(33, 83, 166);
 }
 
 .ct-series-b .ct-line{
-    stroke: purple;
+    stroke: rgb(33, 83, 166);
 }
