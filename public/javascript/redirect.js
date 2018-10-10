@@ -16,7 +16,7 @@ $(document).ready(function(){
         return "";
       }
     let email = getCookie('email')
-    let info  =  { 1: code, 2: email}
+    let info  =  { code: code, email: email}
   
     $.ajax("/api/stravaAccessCode", {
         type: "POST",
