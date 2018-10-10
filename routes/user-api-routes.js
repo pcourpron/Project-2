@@ -125,7 +125,7 @@ module.exports = function (app) {
                             body: ""
                         }
                             , function (error, response, body) {
-                           
+                           console.log(body)
                                 JSON.parse(body).forEach(workout => {
                                     var i = 0 
                                     var date = workout.start_date_local.split('T')[0]
