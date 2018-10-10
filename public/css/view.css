@@ -1,0 +1,30 @@
+img {
+  padding: 1em 1em 0em 1em;
+}
+
+nav {
+  margin-bottom: 2em;
+  box-shadow: none;
+  height: 86px;
+}
+
+span {
+  color: rgb(33, 83, 116) !important;
+}
+
+.nav-wrapper {
+  padding-top: 0.8em;
+}
+
+.carousel {
+  overflow: visible;
+  margin-bottom: 11em;
+}
+
+.carousel-item {
+  margin-top: -100px;
+}
+
+.workout-data {
+  float: right;
+}
