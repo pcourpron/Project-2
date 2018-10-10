@@ -116,7 +116,10 @@ module.exports = (app) => {
     const swimArray = [];
     const walkArray = [];
     const otherArray = [];
-    db.Workout.findAll().then((data) => {
+    const allArray = [];
+    db.Workout.findAll({
+      order: [['date', 'DESC']],
+    }).then((data) => {
       data.forEach((workout) => {
         Object.values(workout.dataValues).forEach((value) => {
           let newValue = value;
@@ -125,26 +128,33 @@ module.exports = (app) => {
           }
         });
         switch (workout.dataValues.category) {
-          case 'crossfit':
+          case 'Crossfit':
             crossfitArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'hike':
+          case 'Hike':
             hikeArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'ride':
+          case 'Ride':
             rideArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'run':
+          case 'Run':
             runArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'swim':
+          case 'Swim':
             swimArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'walk':
+          case 'Walk':
             walkArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
-          case 'other':
+          case 'Other':
             otherArray.push(workout.dataValues);
+            allArray.push(workout.dataValues);
             break;
           default:
             break;
@@ -158,6 +168,7 @@ module.exports = (app) => {
         swim: swimArray,
         walk: walkArray,
         other: otherArray,
+        all: allArray,
       });
     });
   });
