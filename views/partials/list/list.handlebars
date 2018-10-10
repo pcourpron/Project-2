@@ -1,4 +1,4 @@
-<div class="carousel-item">
+<div class="carousel-item" style="width: 24vw">
   <div class="card">
     <div class="card-image">
       <img src="/images/{{category}}.png">
@@ -6,35 +6,31 @@
     <div class="card-content">
       <ul class="">
         {{#if date}}
-        <li class=""><strong>Date: </strong>{{date}}</li>
+        <li><strong>Date: </strong><span class="workout-data">{{date}}</span></li>
         <hr>
         {{/if}}
         {{#if time}}
-        <li class=""><strong>Time: </strong>{{time}}</li>
+        <li><strong>Time: </strong><span class="workout-data">{{time}}</span></li>
         <hr>
         {{/if}}
         {{#if distance}}
-        <li class=""><strong>Distance: </strong>{{distance}} miles</li>
+        <li><strong>Distance: </strong><span class="workout-data">{{distance}} miles</span></li>
         <hr>
         {{/if}}
         {{#if workout_length}}
-        <li class=""><strong>Workout Length: </strong>{{workout_length}}</li>
+        <li><strong>Workout Length: </strong><span class="workout-data">{{workout_length}}</span></li>
         <hr>
         {{/if}}
         {{#if pace}}
-        <li class=""><strong>Pace: </strong>{{pace}}</li>
+        <li><strong>Pace: </strong><span class="workout-data">{{pace}}</span></li>
         <hr>
         {{/if}}
         {{#if RPE}}
-        <li class=""><strong>RPE: </strong>{{RPE}}</li>
+        <li><strong>RPE: </strong><span class="workout-data">{{RPE}}</span></li>
         <hr>
         {{/if}}
         {{#if stress_score}}
-        <li class=""><strong>Stress: </strong>{{stress_score}}</li>
-        <hr>
-        {{/if}}
-        {{#if has_heartrate}}
-        <li class=""><strong>Heart Rate: </strong>{{heart_rate}} BPM</li>
+        <li><strong>Stress: </strong><span class="workout-data">{{stress_score}}</span></li>
         <hr>
         {{/if}}
       </ul>
