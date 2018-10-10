@@ -1,6 +1,4 @@
 $(document).ready(function() {
-    var email
-
     const log = console.log;
 function getCookie(cookie_name){
     var name = cookie_name + "=";
@@ -31,7 +29,7 @@ function checkCookies(){
     }).then(function (response) {
         console.log(response)
         if (response === false){
-            console.log('hi')
+
             window.location.href = '/'
         }
         else {

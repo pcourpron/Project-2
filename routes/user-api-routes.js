@@ -7,7 +7,9 @@ module.exports = function (app) {
 
     app.post("/api/newUser", function (req, res) {
 
-        var user = req.body
+        var user = req.body;
+        var auth_key = Math.floor(Math.random()*1000000)+10000000;
+        user.auth_key = auth_key;
 
         db.User.find({where: 
         {email: user.email}}).then(function(response){
@@ -15,21 +17,28 @@ module.exports = function (app) {
                 db.User.find({order: ["user_id"]}).then(function(response){
                     if (response !== null){
                         user.user_id = response.dataValues.user_id + 1
+
+                        res.cookie("email", user.user_id, {expires: new Date(Date.now() + 999999999)});
+                        res.cookie("auth_key", auth_key, {expires: new Date(Date.now() + 999999999)});
+                        
                         db.User.create(user).then(function (result) {
-                            res.send({'test':user.user_id})
+                            res.redirect('/homepage')
                         });
                     }
                     else{
                         user.user_id = 1234124513
+                        res.cookie("email", user.user_id, {expires: new Date(Date.now() + 999999999)});
+                        res.cookie("auth_key", auth_key, {expires: new Date(Date.now() + 999999999)});
+
                         db.User.create(user).then(function (result) {
-                            res.send({'test':user.user_id})
+                            res.redirect('/homepage')
                         });
                     }
                     
                 }) 
             }
             else{
-                res.send(false)
+                res.redirect('/login')
             }
         })
 
@@ -39,18 +48,26 @@ module.exports = function (app) {
 
     app.post("/api/loading",function(req,res){
         var loginInfo = req.body
-
+        console.log(loginInfo)
         db.User.find({
-            where: loginInfo
+            where: {
+                user_id : loginInfo.email,
+                auth_key: loginInfo.auth_key
+            }
         }).then(function(results){
-            if (results.dataValues.email === loginInfo.email && results.dataValues.auth_key === loginInfo.auth_key){
+     
+            if (results.dataValues.user_id == loginInfo.email && results.dataValues.auth_key === loginInfo.auth_key){
+     
                 res.send(true)
+
             }
             else{
+
                 res.send(false)
             }
         })
         .catch(function(){
+
             res.send(false)
         })
 
@@ -60,8 +77,15 @@ module.exports = function (app) {
         db.User.find({
             where : {email: user.email}
         }).then(function (results) {
-           if (user.password === results.dataValues.password){
-           res.send({email: user.email, auth_key :results.dataValues.auth_key})
+
+           if (results === null){
+               res.send(false)
+           }
+           else if (user.password === results.dataValues.password ){
+           res.send({email: results.dataValues.user_id, auth_key :results.dataValues.auth_key})
+           }
+           else{
+               res.send(false)
            }
 
         });
@@ -169,10 +193,10 @@ module.exports = function (app) {
                                                 
 
                                                 db.Workout.create(workoutObject).then(function(result){
-                                                    res.end();
+                                                    res.end(); 
                                                 });
                                             }
-
+                                            
                                         }
                                         )
                                     }

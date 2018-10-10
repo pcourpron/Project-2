@@ -9,11 +9,7 @@ $(document).ready(function() {
         type: "POST",
         data: userInfo
     }).then(function (response) {
-
-  console.log('hi')
-
        window.location.href = '/homepage'
-   
     }
     );
 
