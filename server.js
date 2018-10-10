@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const session = require('express-session')
 const PORT = process.env.PORT || 8080;
 
 const app = express();
@@ -12,6 +12,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse application/json
 app.use(bodyParser.json());
+app.use(session({
+  secret: "yolo", 
+  resave: false,
+  saveUninitialized: true,
+  cookie: {secure: "auto"}
+}))
 
 // Set Handlebars.
 const exphbs = require('express-handlebars');
@@ -29,7 +35,9 @@ require('./routes/user-api-routes.js')(app);
 require('./routes/htmlRoutes.js')(app);
 
 // Start our server so that it can begin listening to client requests.
-db.sequelize.sync({ force: true }).then(() => {
+
+db.sequelize.sync({}).then(() => {
+
   app.listen(PORT, () => {
     console.log(`App listening on PORT ${PORT}`);
   });

@@ -17,7 +17,14 @@ module.exports = function(app){
 
     app.get("/api/workout/", function(req, res) {
         var user_id = getCookie('user_id',req)
-        db.Workout.findAll({where : {user_id: user_id}},{order: ["date"]}).then(function(dbWorkout){
+        db.Workout.findAll({
+            where : {
+                user_id: user_id
+            }, 
+            order: [
+                ["date", "ASC"]
+            ]
+        }).then(function(dbWorkout){
             res.json(dbWorkout);
         })
     });

@@ -24,24 +24,55 @@ function checkCookies(req) {
 
 function redirect(req, res, badRoute, goodRoute) {
   if (req.headers.cookie === undefined) {
+
     res.redirect('/');
   } else {
     var info = checkCookies(req);
+
+    db.User.find({
+      where: {
+        user_id: info[0],
+        auth_key: info[1]
+      }
+    })
+      .then(function (results) {
+        if (results._options.raw === true) {
+          res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
+
+        }
+      })
+      .catch(function (results) {
+        res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
+      })
+  }
+}
+function redirectLogin(req, res, badRoute, goodRoute) {
+
+  if (req.headers.cookie === undefined) {
+    res.sendFile(path.join(__dirname, '../public/html/' + badRoute))
+  }
+  else {
+    var info = checkCookies(req)
     db.User.find({
       where: {
         email: info[0],
         auth_key: info[1],
       },
     })
+
       .then(function(results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
         }
       })
+
       .catch(function() {
+
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
+
+
 }
 
 module.exports = (app) => {
@@ -57,7 +88,8 @@ module.exports = (app) => {
     redirect(req, res, 'landing.html', 'index.html');
   });
   app.get('/login', (req, res) => {
-    redirect(req, res, 'login.html', 'index.html');
+  
+    redirectLogin(req, res,'login.html','index.html');
   });
   app.get('/sync', (req, res) => {
     redirect(req, res, 'landing.html', 'sync.html');
@@ -146,6 +178,10 @@ module.exports = (app) => {
 
   app.get('/chart', (req, res) => {
     redirect(req, res, 'landing.html', 'chart.html');
+  });
+  app.get('/redirect_success', (req, res) => {
+    redirect(req, res, 'landing.html', 'index.html')
+    
   });
 
   app.get('*', (req, res) => {
