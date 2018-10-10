@@ -103,6 +103,7 @@ module.exports = function (app) {
             url: `https://www.strava.com/oauth/token?client_id=29032&client_secret=0f9f5324b2a4ee9c2c68fcacf7013755710a91ec&code=${code}`,
             body: ""
         }, function (error, response, body) {
+            console.log(body)
             var auth_key = JSON.parse(body).access_token
             db.User.update({ strava_auth: auth_key }, {
                 where: { user_id: user_id }
