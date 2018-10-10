@@ -1,35 +1,41 @@
-const showOnly = (category) => {
-  $('.hide').hide();
-  $(`${category}`).show();
-};
+$(document).ready(() => {
+  const showOnly = (category) => {
+    $('.hideCategory').hide();
+    $(`${category}`).show();
+  };
 
-$('#categorySelect').change(function select() {
-  switch ($(this).val()) {
-    case 'All':
-      $('.hide').show();
-      break;
-    case 'Crossfit':
-      showOnly('#crossfit');
-      break;
-    case 'Hike':
-      showOnly('#hike');
-      break;
-    case 'Ride':
-      showOnly('#ride');
-      break;
-    case 'Run':
-      showOnly('#run');
-      break;
-    case 'Swim':
-      showOnly('#swim');
-      break;
-    case 'Walk':
-      showOnly('#walk');
-      break;
-    case 'Other':
-      showOnly('#other');
-      break;
-    default:
-      break;
-  }
+  $('select').formSelect();
+  $('.carousel').carousel();
+  showOnly('#all');
+
+  $('#categorySelect').change(function select() {
+    switch ($(this).val()) {
+      case '1':
+        showOnly('#all');
+        break;
+      case '2':
+        showOnly('#crossfit');
+        break;
+      case '3':
+        showOnly('#hike');
+        break;
+      case '4':
+        showOnly('#ride');
+        break;
+      case '5':
+        showOnly('#run');
+        break;
+      case '6':
+        showOnly('#swim');
+        break;
+      case '7':
+        showOnly('#walk');
+        break;
+      case '8':
+        showOnly('#other');
+        break;
+      default:
+        break;
+    }
+  });
 });

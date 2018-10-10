@@ -1,26 +1,39 @@
-<ul class="list-group mb-4">
-  {{#if date}}
-  <li class="list-group-item">Date: {{date}}</li>
-  {{/if}}
-  {{#if time}}
-  <li class="list-group-item">Time: {{time}}</li>
-  {{/if}}
-  {{#if distance}}
-  <li class="list-group-item">Distance: {{distance}} miles</li>
-  {{/if}}
-  {{#if workout_length}}
-  <li class="list-group-item">Workout Length: {{workout_length}}</li>
-  {{/if}}
-  {{#if pace}}
-  <li class="list-group-item">Pace: {{pace}}</li>
-  {{/if}}
-  {{#if RPE}}
-  <li class="list-group-item">RPE: {{RPE}}</li>
-  {{/if}}
-  {{#if stress_score}}
-  <li class="list-group-item">Stress: {{stress_score}}</li>
-  {{/if}}
-  {{#if has_heartrate}}
-  <li class="list-group-item">Heart Rate: {{heart_rate}} BPM</li>
-  {{/if}}
-</ul>
+<div class="carousel-item" style="width: 24vw">
+  <div class="card">
+    <div class="card-image">
+      <img src="/images/{{category}}.png">
+    </div>
+    <div class="card-content">
+      <ul class="">
+        {{#if date}}
+        <li><strong>Date: </strong><span class="workout-data">{{date}}</span></li>
+        <hr>
+        {{/if}}
+        {{#if time}}
+        <li><strong>Time: </strong><span class="workout-data">{{time}}</span></li>
+        <hr>
+        {{/if}}
+        {{#if distance}}
+        <li><strong>Distance: </strong><span class="workout-data">{{distance}} miles</span></li>
+        <hr>
+        {{/if}}
+        {{#if workout_length}}
+        <li><strong>Workout Length: </strong><span class="workout-data">{{workout_length}}</span></li>
+        <hr>
+        {{/if}}
+        {{#if pace}}
+        <li><strong>Pace: </strong><span class="workout-data">{{pace}}</span></li>
+        <hr>
+        {{/if}}
+        {{#if RPE}}
+        <li><strong>RPE: </strong><span class="workout-data">{{RPE}}</span></li>
+        <hr>
+        {{/if}}
+        {{#if stress_score}}
+        <li><strong>Stress: </strong><span class="workout-data">{{stress_score}}</span></li>
+        <hr>
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>

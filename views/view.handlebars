@@ -1,114 +1,130 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-    <a class="navbar-brand" href="/">Logo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/log">Log a Workout</a>
-        <a class="nav-item nav-link" href="/view">View Workouts</a>
-        <a class="nav-item nav-link" href="/sync">Sync</a>
-      </div>
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/settings">Settings</a>
-      </div>
+  <nav>
+    <div class="nav-wrapper" style="background-color: whitesmoke; padding-right: 12em">
+      <a href="/homepage" class="brand-logo" style='color: rgb(33, 83, 116); font-size: 2.6em; padding-left: 4.3em'>Ascent</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/homepage" style='color: rgb(33, 83, 116)'>Home</a></li>
+        <li><a href="/log" style='color: rgb(33, 83, 116)'>Log a Workout</a></li>
+        <li><a href="/view" style='color: rgb(33, 83, 116)'>View Workouts</a></li>
+        <li><a href="/sync" style='color: rgb(33, 83, 116)'>Sync</a></li>
+      </ul>
     </div>
   </nav>
 </header>
 
 <main class="container">
-  <div class="form-group mb-4">
-    <label for="categorySelect">
-      <h3>Category</h3>
-    </label>
-    <select class="form-control" id="categorySelect">
-      <option>All</option>
-      <option>Crossfit</option>
-      <option>Hike</option>
-      <option>Ride</option>
-      <option>Run</option>
-      <option>Swim</option>
-      <option>Walk</option>
-      <option>Other</option>
-    </select>
+  {{#if all}}
+  <div class="hideCategory row" id="all">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each all}}
+        {{>list/list}}
+        {{/each}}
+      </div>
+    </div>
   </div>
+  {{/if}}
 
   {{#if crossfit}}
-  <div class="row">
-    <div class="col hide" id="crossfit">
-      <h3>Crossfit</h3>
-      {{#each crossfit}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="crossfit">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each crossfit}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if hike}}
-  <div class="row">
-    <div class="col hide" id="hike">
-      <h3>Hike</h3>
-      {{#each hike}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="hike">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each hike}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if ride}}
-  <div class="row">
-    <div class="col hide" id="ride">
-      <h3>Ride</h3>
-      {{#each ride}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="ride">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each ride}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if run}}
-  <div class="row">
-    <div class="col hide" id="run">
-      <h3>Run</h3>
-      {{#each run}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="run">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each run}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if swim}}
-  <div class="row">
-    <div class="col hide" id="swim">
-      <h3>Swim</h3>
-      {{#each swim}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="swim">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each swim}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if walk}}
-  <div class="row">
-    <div class="col hide" id="walk">
-      <h3>Walk</h3>
-      {{#each walk}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="walk">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each walk}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
 
   {{#if other}}
-  <div class="row">
-    <div class="col hide" id="other">
-      <h3>Other</h3>
-      {{#each other}}
-      {{>list/list}}
-      {{/each}}
+  <div class="hideCategory row" id="other">
+    <div class="col s12">
+      <div class="carousel">
+        {{#each other}}
+        {{>list/list}}
+        {{/each}}
+      </div>
     </div>
   </div>
   {{/if}}
+
+  <div class="row">
+    <div class="input-field col s3">
+      <select id="categorySelect">
+        <option value="1"><span>All</span></option>
+        <option value="2"><span>Crossfit</span></option>
+        <option value="3"><span>Hike</span></option>
+        <option value="4"><span>Ride</span></option>
+        <option value="5"><span>Run</span></option>
+        <option value="6"><span>Swim</span></option>
+        <option value="7"><span>Walk</span></option>
+        <option value="8"><span>Other</span></option>
+      </select>
+      <label>
+        Category
+      </label>
+    </div>
+  </div>
+
 </main>
