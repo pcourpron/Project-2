@@ -60,10 +60,11 @@ function getWorkouts(){
     stressArray = [];
     $.get("/api/workout/", function(data){
         workouts = data;
-        console.log(data, "this is the data");
+        console.log(data);
         var chartTimeframe = $("#chart-timeframe").val();
         let date;
         let today = new Date();
+        console.log(today);
         switch (chartTimeframe){
             case ("one-month"):
                 date = new Date().setMonth(today.getMonth()-1);
@@ -90,7 +91,7 @@ function getWorkouts(){
                 let date2 = new Date(selectedWorkouts[i+1].date);
                 let difference = (date2-date1)/(1000*60*60*24);
                 if(difference > 1){
-                    for (let i = 0; i < difference; i++){
+                    for (let i = 1; i < difference; i++){
                         stressArray.push(0);
                     }
                 }
@@ -128,7 +129,7 @@ $("#chart-timeframe").on("change", getWorkouts);
 var EMA = 0;
 var EMAarray = [];
 var fitnessArray = [];
-var fitness = 6;
+var fitness = 0;
 // Exponential moving average = [Close - previous EMA] * (2 / n+1) + previous EMA
 
 function createEMA(){
@@ -158,7 +159,7 @@ function createFitness(){
     }
 }
 
-function renderChart(stress, fitness,){
+function renderChart(stress, fitness){
 
    var chart = new Chartist.Line(".ct-chart", {
         series: [   
@@ -203,7 +204,7 @@ function renderChart(stress, fitness,){
 
 function selectTimeFrame(date){
     let today = new Date();
-    let maxDate = new Date(date)
+    let maxDate = new Date(date);
     // console.log(maxDate);
     let timeframe = Math.floor((today-maxDate)/(1000*60*60*24));
     // console.log(timeframe);
@@ -222,7 +223,6 @@ function selectTimeFrame(date){
             stressArray.push(0);
         }
     }
-
 }
 
 
@@ -240,7 +240,7 @@ function makeRecommendation(){
     if (todayFitness === todayStress){
         log("Fitness and Stress are equal");
         if ((fitnessTrend > 0 && stressTrend > 0) || (fitnessTrend < 0 && stressTrend > 0)){
-            log("You're good to go!")
+            log("You're good to go!");
         }
             else if ((fitnessTrend > 0 && stressTrend < 0) || (fitnessTrend < 0 && stressTrend < 0)){
                 log("Take it easy and keep recovering");
