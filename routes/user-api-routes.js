@@ -107,7 +107,7 @@ module.exports = function (app) {
             
             var auth_key = JSON.parse(body).access_token
             db.User.update({ strava_auth: auth_key }, {
-                where: { email: email }
+                where: { user_id: email }
             }).then(function () {
 
                 db.User.find({
