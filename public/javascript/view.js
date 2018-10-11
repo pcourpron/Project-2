@@ -61,7 +61,7 @@ $(document).ready(() => {
     if ($(this).parents().eq(4)[0].classList[1] === 'active') {
 
       $.ajax("/api/deleteWorkout", {
-        type: "POST",
+        type: "DELETE",
         data: {id:id}
       }).then(function (response) {
         if (response === true){
@@ -71,5 +71,11 @@ $(document).ready(() => {
     }
 
   })
+  $('#logout').click(function(){
+    document.cookie = "auth_key=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.reload()
+    
+})
 
 })

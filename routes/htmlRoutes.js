@@ -1,7 +1,7 @@
 const path = require('path');
 const db = require('../models');
 
-var getCookie = function(cookie_name, req) {
+var getCookie = function (cookie_name, req) {
   var name = cookie_name + '=';
   var ca = req.headers.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
@@ -34,12 +34,12 @@ function redirect(req, res, badRoute, goodRoute) {
         auth_key: info[1],
       },
     })
-      .then(function(results) {
+      .then(function (results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
         }
       })
-      .catch(function(results) {
+      .catch(function (results) {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
@@ -56,13 +56,13 @@ function redirectLogin(req, res, badRoute, goodRoute) {
       },
     })
 
-      .then(function(results) {
+      .then(function (results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
         }
       })
 
-      .catch(function() {
+      .catch(function () {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
@@ -96,73 +96,79 @@ module.exports = (app) => {
   });
 
   app.get('/view', (req, res) => {
-    const crossfitArray = [];
-    const hikeArray = [];
-    const rideArray = [];
-    const runArray = [];
-    const swimArray = [];
-    const walkArray = [];
-    const otherArray = [];
-    const allArray = [];
-    const user_id = getCookie('email', req);
+    var array = checkCookies(req)
+    console.log(array)
+    if (array[0] === '' || array[1] === '') {
+      res.redirect('/')
+    }
+    else {
 
-    db.Workout.findAll({
-      where: {
-        user_id: user_id,
-      },
-      order: [['date', 'DESC']],
-    }).then((data) => {
-      data.forEach((workout) => {
-        Object.values(workout.dataValues).forEach((value) => {
-          let newValue = value;
-          if (value === null) {
-            newValue = false;
+
+      const crossfitArray = [];
+      const hikeArray = [];
+      const rideArray = [];
+      const runArray = [];
+      const swimArray = [];
+      const walkArray = [];
+      const otherArray = [];
+      const allArray = [];
+      db.Workout.findAll({
+        order: [['date', 'DESC']],
+      }).then((data) => {
+        data.forEach((workout) => {
+          Object.values(workout.dataValues).forEach((value) => {
+            let newValue = value;
+            if (value === null) {
+              newValue = false;
+            }
+          });
+          switch (workout.dataValues.category) {
+            case 'crossfit':
+              crossfitArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'hike':
+              hikeArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'ride':
+              rideArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'run':
+              runArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'swim':
+              swimArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'walk':
+              walkArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            case 'other':
+              otherArray.push(workout.dataValues);
+              allArray.push(workout.dataValues);
+              break;
+            default:
+              break;
           }
         });
-        switch (workout.dataValues.category) {
-          case 'crossfit':
-            crossfitArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'hike':
-            hikeArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'ride':
-            rideArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'run':
-            runArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'swim':
-            swimArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'walk':
-            walkArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          case 'other':
-            otherArray.push(workout.dataValues);
-            allArray.push(workout.dataValues);
-            break;
-          default:
-            break;
-        }
-      });
-      res.render('view', {
-        crossfit: crossfitArray,
-        hike: hikeArray,
-        ride: rideArray,
-        run: runArray,
-        swim: swimArray,
-        walk: walkArray,
-        other: otherArray,
-        all: allArray,
-      });
-    });
+
+
+        res.render('view', {
+          crossfit: crossfitArray,
+          hike: hikeArray,
+          ride: rideArray,
+          run: runArray,
+          swim: swimArray,
+          walk: walkArray,
+          other: otherArray,
+          all: allArray,
+        });
+      })
+    };
   });
 
   app.get('/sync', (req, res) => {

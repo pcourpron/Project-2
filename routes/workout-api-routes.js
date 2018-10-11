@@ -36,7 +36,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/api/deleteWorkout',function(req,res){
+    app.delete('/api/deleteWorkout',function(req,res){
         db.Workout.destroy({where: {
             id: req.body.id}
         }).then(function(result){
