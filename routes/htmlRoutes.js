@@ -104,7 +104,12 @@ module.exports = (app) => {
     const walkArray = [];
     const otherArray = [];
     const allArray = [];
+    const user_id = getCookie('email', req);
+
     db.Workout.findAll({
+      where: {
+        user_id: user_id,
+      },
       order: [['date', 'DESC']],
     }).then((data) => {
       data.forEach((workout) => {
