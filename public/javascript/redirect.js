@@ -15,15 +15,17 @@ $(document).ready(function(){
         }
         return "";
       }
-    let email = getCookie('email')
-    let info  =  { code: code, email: email}
-  
+      let email = getCookie('email')
+
+    
+    let info  =  { 1: code, 2: email}
     $.ajax("/api/stravaAccessCode", {
         type: "POST",
         data: info
     }).then(function () {
-      console.log('hi')
+        window.location.href = '/homepage'
         
+
     }
     );
 

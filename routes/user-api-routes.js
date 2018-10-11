@@ -72,7 +72,7 @@ module.exports = function (app) {
 
     })
     app.post("/api/login", function (req, res) {
-        4
+        
         var user = req.body
         db.User.find({
             where: { email: user.email }
@@ -95,16 +95,17 @@ module.exports = function (app) {
     });
 
     app.post("/api/stravaAccessCode", function (req, res) {
-        var code = req.body.code
-        var user_id = req.body.email
-        console.log('----------------------------------')
+        var code = req.body['1']
+        var user_id = req.body['2']
+       
         request.post({
             headers: { 'content-type': 'application/x-      ww-form-urlencoded' },
             url: `https://www.strava.com/oauth/token?client_id=29032&client_secret=0f9f5324b2a4ee9c2c68fcacf7013755710a91ec&code=${code}`,
             body: ""
         }, function (error, response, body) {
             var auth_key = JSON.parse(body).access_token
-            db.User.update({ strava_auth: auth_key }, {
+          
+            db.User.update({strava_auth: auth_key }, {
                 where: { user_id: user_id }
             }).then(function () {
                 db.User.find({
@@ -115,7 +116,7 @@ module.exports = function (app) {
                             { user_id: user_id }
                     }).then(function (response) {
                         var access_token = response.dataValues.strava_auth
-
+                    
                         request.get({
                             headers: { 'content-type': 'application/x-www-form-urlencoded' },
                             url: `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`,
