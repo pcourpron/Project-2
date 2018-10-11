@@ -16,13 +16,16 @@ $(document).ready(function(){
         return "";
       }
       let email = getCookie('email')
+
+    
     let info  =  { 1: code, 2: email}
-    console.log(info)
     $.ajax("/api/stravaAccessCode", {
         type: "POST",
         data: info
     }).then(function () {
+        window.location.href = '/homepage'
         
+
     }
     );
 
