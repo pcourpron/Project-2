@@ -6,6 +6,21 @@ $(document).ready(() => {
 
   $('select').formSelect();
   $('.carousel').carousel();
+
+  $(document).keydown(function(e) {
+    switch (e.which) {
+      case 37:
+        $('.carousel').carousel('prev');
+        break;
+      case 39:
+        $('.carousel').carousel('next');
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+  });
+
   showOnly('#all');
 
   $('#categorySelect').change(function select() {
