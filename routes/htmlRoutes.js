@@ -1,7 +1,7 @@
 const path = require('path');
 const db = require('../models');
 
-var getCookie = function (cookie_name, req) {
+var getCookie = function(cookie_name, req) {
   var name = cookie_name + '=';
   var ca = req.headers.cookie.split(';');
   for (var i = 0; i < ca.length; i++) {
@@ -34,12 +34,12 @@ function redirect(req, res, badRoute, goodRoute) {
         auth_key: info[1],
       },
     })
-      .then(function (results) {
+      .then(function(results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
         }
       })
-      .catch(function (results) {
+      .catch(function(results) {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
@@ -56,13 +56,13 @@ function redirectLogin(req, res, badRoute, goodRoute) {
       },
     })
 
-      .then(function (results) {
+      .then(function(results) {
         if (results._options.raw === true) {
           res.sendFile(path.join(__dirname, '../public/html/' + goodRoute));
         }
       })
 
-      .catch(function () {
+      .catch(function() {
         res.sendFile(path.join(__dirname, '../public/html/' + badRoute));
       });
   }
@@ -96,14 +96,11 @@ module.exports = (app) => {
   });
 
   app.get('/view', (req, res) => {
-    var array = checkCookies(req)
-    console.log(array)
+    var array = checkCookies(req);
+    console.log(array);
     if (array[0] === '' || array[1] === '') {
-      res.redirect('/')
-    }
-    else {
-
-
+      res.redirect('/');
+    } else {
       const crossfitArray = [];
       const hikeArray = [];
       const rideArray = [];
@@ -112,7 +109,12 @@ module.exports = (app) => {
       const walkArray = [];
       const otherArray = [];
       const allArray = [];
+      const user_id = getCookie('email', req);
+
       db.Workout.findAll({
+        where: {
+          user_id: user_id,
+        },
         order: [['date', 'DESC']],
       }).then((data) => {
         data.forEach((workout) => {
@@ -156,7 +158,6 @@ module.exports = (app) => {
           }
         });
 
-
         res.render('view', {
           crossfit: crossfitArray,
           hike: hikeArray,
@@ -167,8 +168,8 @@ module.exports = (app) => {
           other: otherArray,
           all: allArray,
         });
-      })
-    };
+      });
+    }
   });
 
   app.get('/sync', (req, res) => {
@@ -182,7 +183,6 @@ module.exports = (app) => {
   app.get('/chart', (req, res) => {
     redirect(req, res, 'landing.html', 'chart.html');
   });
-
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
