@@ -1,8 +1,12 @@
 $(document).ready(function () {
+
+
     $(document).on("click", "#btn", function () {
         event.preventDefault();
         console.log("submit")
         var stress_score
+
+
 
         var RPE = parseInt($('#rpe').val())
         switch (RPE) {
@@ -41,7 +45,21 @@ $(document).ready(function () {
                 break;
         }
         console.log(stress_score)
-
+        var getCookie = function (cookie_name) {
+            var name = cookie_name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+              }
+              if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+              }
+            }
+            return "";
+          }
+          let email = getCookie('email')
 
         var upsertLaw = {
             category: $("#category").val().trim(),
@@ -51,8 +69,10 @@ $(document).ready(function () {
             pace: $("#pace").val().trim(),
             date: $("#date").val().trim(),
             stress_score: stress_score,
-
+            user_id : email
         }
+
+        
 
         $.ajax("/api/workout/", {
             method: 'POST',
