@@ -38,4 +38,23 @@ $(document).ready(() => {
         break;
     }
   });
-});
+
+
+  $('.btn').click(function () {
+    var parent = $(this).parents().eq(4)  
+    var id = this.dataset.id
+    if ($(this).parents().eq(4)[0].classList[1] === 'active') {
+
+      $.ajax("/api/deleteWorkout", {
+        type: "POST",
+        data: {id:id}
+      }).then(function (response) {
+        if (response === true){
+          window.location.reload()
+        }
+      })
+    }
+
+  })
+
+})
