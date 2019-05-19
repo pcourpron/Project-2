@@ -1,6 +1,6 @@
 import sys
 import random
-
+import scipy
 
 ret = {"test":"123"}
 
