@@ -1,5 +1,6 @@
 const path = require('path');
 const db = require('../models');
+const {PythonShell}= require('python-shell');
 
 var getCookie = function(cookie_name, req) {
   var name = cookie_name + '=';
@@ -67,6 +68,23 @@ function redirectLogin(req, res, badRoute, goodRoute) {
       });
   }
 }
+
+function HRVCalc() {
+
+  PythonShell.run("./d_alembert.py", options, function (err, data) {
+    console.log('==========')
+    console.log('results: %j', data);
+    let results = JSON.parse(data[0].replace(/'/g,"\""));
+    console.log(results.test)
+    console.log('==========')
+    if (err) res.send(err);
+    res.send(results.test)
+  });
+}
+
+
+
+
 
 module.exports = (app) => {
   app.get('/', (req, res) => {
@@ -187,4 +205,8 @@ module.exports = (app) => {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
+  
+  app.post('/hrv',(req, res) =>{
+
+  })
 };
