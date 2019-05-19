@@ -9,10 +9,7 @@ app.post("/dalembert", callD_alembert);
 
 function callD_alembert(req, res) {
 
-var files = fs.readdirSync('../app/python');
 
-console.log(files)
-  res.send('hi')
   PythonShell.run("../app/python/hrv.py", null, function (err, data) {
     console.log('==========')
     console.log('results: %j', data);
