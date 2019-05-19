@@ -9,7 +9,7 @@ app.post("/dalembert", callD_alembert);
 
 function callD_alembert(req, res) {
 
-var files = fs.readdirSync('../');
+var files = fs.readdirSync('../app/python');
 
 console.log(files)
   res.send('hi')
