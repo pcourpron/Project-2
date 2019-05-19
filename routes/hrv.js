@@ -1,3 +1,4 @@
+const {PythonShell} = require('python-shell');
 
 
 module.exports = function (app) {

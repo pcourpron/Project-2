@@ -1,6 +1,5 @@
 const path = require('path');
 const db = require('../models');
-const {PythonShell} = require('python-shell');
 
 var getCookie = function(cookie_name, req) {
   var name = cookie_name + '=';
