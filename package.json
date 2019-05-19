@@ -26,6 +26,7 @@
     "express-session": "^1.15.6",
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
+    "python-shell": "^1.0.7",
     "request": "^2.88.0",
     "sequelize": "^4.39.0"
   }
