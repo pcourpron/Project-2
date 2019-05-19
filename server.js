@@ -33,6 +33,7 @@ app.use(express.static('public'));
 require('./routes/workout-api-routes.js')(app);
 require('./routes/user-api-routes.js')(app);
 require('./routes/htmlRoutes.js')(app);
+require('./routes/hrv.js')(app);
 
 // Start our server so that it can begin listening to client requests.
 
