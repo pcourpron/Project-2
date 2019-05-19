@@ -13,7 +13,7 @@ var files = fs.readdirSync('../app/python');
 
 console.log(files)
   res.send('hi')
-  PythonShell.run("../python/hrv.py", null, function (err, data) {
+  PythonShell.run("../app/python/hrv.py", null, function (err, data) {
     console.log('==========')
     console.log('results: %j', data);
     let results = JSON.parse(data[0].replace(/'/g,"\""));
