@@ -1,6 +1,6 @@
 const path = require('path');
 const db = require('../models');
-const {PythonShell}= require('python-shell');
+const {PythonShell} = require('python-shell');
 
 var getCookie = function(cookie_name, req) {
   var name = cookie_name + '=';
@@ -206,7 +206,4 @@ module.exports = (app) => {
     res.sendFile(path.join(__dirname, '../public/html/landing.html'));
   });
   
-  app.post('/hrv',(req, res) =>{
-
-  })
 };

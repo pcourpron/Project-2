@@ -1,5 +1,6 @@
 
 
+module.exports = function (app) {
 
 app.post("/dalembert", callD_alembert);
 
@@ -16,4 +17,5 @@ function callD_alembert(req, res) {
     if (err) res.send(err);
     res.send(results.test)
   });
+}
 }
