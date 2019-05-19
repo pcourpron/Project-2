@@ -1,4 +1,5 @@
 const {PythonShell} = require('python-shell');
+var fs = require('fs');
 
 
 module.exports = function (app) {
@@ -7,6 +8,10 @@ app.post("/dalembert", callD_alembert);
 
 
 function callD_alembert(req, res) {
+
+var files = fs.readdirSync('../python');
+
+console.log(files)
   res.send('hi')
   PythonShell.run("../python/hrv.py", null, function (err, data) {
     console.log('==========')
